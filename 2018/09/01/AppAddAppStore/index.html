@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>App 上架流程 - BLOG</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="BLOG"><meta name="msapplication-TileImage" content="img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="BLOG"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="App 的 上架 和 真机测试，算是App开发流程的最后一步了，那么苹果是如何保证 App Store 上 App 的安全性，以及本地真机测试时苹果是如何授权的呢？"><meta property="og:type" content="blog"><meta property="og:title" content="App 上架流程"><meta property="og:url" content="http://seabrea.xyz/2018/09/01/AppAddAppStore/"><meta property="og:site_name" content="BLOG"><meta property="og:description" content="App 的 上架 和 真机测试，算是App开发流程的最后一步了，那么苹果是如何保证 App Store 上 App 的安全性，以及本地真机测试时苹果是如何授权的呢？"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://s2.ax1x.com/2020/03/09/89Rci8.md.jpg"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8AQmDJ.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8AQeu4.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8AQVvF.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8AZNtS.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8AZtk8.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8AZdpQ.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8AZJTf.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8AZG0P.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8A1Em4.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8A1Z79.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8A1mkR.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8A1V0J.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8A1kXF.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8A1nt1.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8A8RyT.md.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8EV1AK.md.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8EVQ76.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8EVM0x.md.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8EVKn1.md.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8AZNtS.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8EeEQJ.md.png"><meta property="og:image" content="https://s2.ax1x.com/2020/03/11/8EuJOJ.md.png"><meta property="article:published_time" content="2018-09-01T13:00:00.000Z"><meta property="article:modified_time" content="2022-02-22T08:05:11.446Z"><meta property="article:author" content="Sea Brea"><meta property="article:tag" content="iOS"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://s2.ax1x.com/2020/03/09/89Rci8.md.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://seabrea.xyz/2018/09/01/AppAddAppStore/"},"headline":"App 上架流程","image":["https://s2.ax1x.com/2020/03/09/89Rci8.md.jpg","https://s2.ax1x.com/2020/03/11/8AQmDJ.png","https://s2.ax1x.com/2020/03/11/8AQeu4.png","https://s2.ax1x.com/2020/03/11/8AQVvF.png","https://s2.ax1x.com/2020/03/11/8AZNtS.png","https://s2.ax1x.com/2020/03/11/8AZtk8.png","https://s2.ax1x.com/2020/03/11/8AZdpQ.png","https://s2.ax1x.com/2020/03/11/8AZJTf.png","https://s2.ax1x.com/2020/03/11/8AZG0P.png","https://s2.ax1x.com/2020/03/11/8A1Em4.png","https://s2.ax1x.com/2020/03/11/8A1Z79.png","https://s2.ax1x.com/2020/03/11/8A1mkR.png","https://s2.ax1x.com/2020/03/11/8A1V0J.png","https://s2.ax1x.com/2020/03/11/8A1kXF.png","https://s2.ax1x.com/2020/03/11/8A1nt1.png","https://s2.ax1x.com/2020/03/11/8A8RyT.md.png","https://s2.ax1x.com/2020/03/11/8EV1AK.md.png","https://s2.ax1x.com/2020/03/11/8EVQ76.png","https://s2.ax1x.com/2020/03/11/8EVM0x.md.png","https://s2.ax1x.com/2020/03/11/8EVKn1.md.png","https://s2.ax1x.com/2020/03/11/8AZNtS.png","https://s2.ax1x.com/2020/03/11/8EeEQJ.md.png","https://s2.ax1x.com/2020/03/11/8EuJOJ.md.png"],"datePublished":"2018-09-01T13:00:00.000Z","dateModified":"2022-02-22T08:05:11.446Z","author":{"@type":"Person","name":"Sea Brea"},"publisher":{"@type":"Organization","name":"BLOG","logo":{"@type":"ImageObject","url":"http://seabrea.xyz/2018/09/01/AppAddAppStore/img/avatar.png"}},"description":"App 的 上架 和 真机测试，算是App开发流程的最后一步了，那么苹果是如何保证 App Store 上 App 的安全性，以及本地真机测试时苹果是如何授权的呢？"}</script><link rel="canonical" href="http://seabrea.xyz/2018/09/01/AppAddAppStore/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 6.0.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.png" alt="BLOG" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2018-09-01T13:00:00.000Z" title="2018/9/1 下午9:00:00">2018-09-01</time></span><span class="level-item">Updated&nbsp;<time dateTime="2022-02-22T08:05:11.446Z" title="2022/2/22 下午4:05:11">2022-02-22</time></span><span class="level-item"><a class="link-muted" href="/categories/Mobile/">Mobile</a></span><span class="level-item">14 minutes read (About 2116 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">App 上架流程</h1><div class="content"><blockquote>
+<p>App 的 上架 和 真机测试，算是App开发流程的最后一步了，那么苹果是如何保证 App Store 上 App 的安全性，以及本地真机测试时苹果是如何授权的呢？</p>
+</blockquote>
+<p><img src="https://s2.ax1x.com/2020/03/09/89Rci8.md.jpg"></p>
+<span id="more"></span>
+
+<h1 id="App-上架流程"><a href="#App-上架流程" class="headerlink" title="App 上架流程"></a>App 上架流程</h1><h2 id="Apple-ID"><a href="#Apple-ID" class="headerlink" title="Apple ID"></a>Apple ID</h2><p>Apple ID其实就是开发者账号，拥有开发者账户是App上架的必须条件，通常有三种：</p>
+<table>
+<thead>
+<tr>
+<th>账户类型</th>
+<th align="center">App Store 上架</th>
+<th align="center">测试设备数量</th>
+<th align="center">申请条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>个人</td>
+<td align="center">支持上架</td>
+<td align="center">100</td>
+<td align="center">无</td>
+</tr>
+<tr>
+<td>公司</td>
+<td align="center">支持上架</td>
+<td align="center">100</td>
+<td align="center">需要邓氏码</td>
+</tr>
+<tr>
+<td>企业</td>
+<td align="center">不支持上架</td>
+<td align="center">100</td>
+<td align="center">需要邓氏码</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>企业账户通常针对的是 公司内部发布App</p>
+</blockquote>
+<h2 id="APP-的签名和证书"><a href="#APP-的签名和证书" class="headerlink" title="APP 的签名和证书"></a>APP 的签名和证书</h2><p>意义：保证APP的稳定性和苹果对其的控制权</p>
+<blockquote>
+<p>当 APP 上传 App Store 后，App Store会对 App 进行加密 和 封装 处理。手机从 App Store 上面下载 App 后，iOS 系统会对 App 进行解密和校验，之后才会安装。</p>
+</blockquote>
+<p>但是，以上的流程 均是 针对 App Store 的行为，加密和解密都是 App Store 完成的。  </p>
+<p>那么作为开发者，我们不可能每次 真机测试 都通过 App Store 平台来完成这个过程，所以我们通常需要在本地加密，然后用真机中 <strong>iOS系统</strong> 去解密。</p>
+<p>通常本地的加密流程是：</p>
+<ol>
+<li>获取本地的 <strong>CSR文件</strong>，与本地的 <strong>p12</strong> 一起保证 <strong>Certificate 和 Profiles</strong> 的本地稳定性和安全。</li>
+<li>在开发者平台中，用 CSR文件 创建 <strong>Certificate</strong> 这个苹果授权的证书。</li>
+<li>在开发者平台中，使用相关证书，填写相关 App 的<strong>BunldID</strong>，和需要安装这个App的真机的 <strong>DevicesID</strong>，创建对应的 <strong>Profiles</strong>描述文件。</li>
+<li>Xcode项目中添加<strong>Profiles</strong>后，编译打包。</li>
+<li>DevicesID对应的真机便可以通过iOS系统解密安装了。</li>
+</ol>
+<blockquote>
+<p>如果证书需要给其他人用，则将生成的证书下载，在本地安装后导出成p12文件，生成的p12文件在其他电脑上安装，则其他人可以使用这个证书。所以通常在测试和发布证书申请成功并安装后，一定要将证书导出成p12文件好好保存，给其他开发者或者下个开发者使用，其他人直接安装p12就可以安装好对应的相关证书，就不需要再去申请了。</p>
+</blockquote>
+<p>具体流程则是：</p>
+<p><img src="https://s2.ax1x.com/2020/03/11/8AQmDJ.png"><br><strong>先通过本地Mac的钥匙串 中的证书助理，申请CSR文件</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8AQeu4.png"><br><strong>按要求填写好后，选择 存储在本地磁盘</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8AQVvF.png"><br><strong>CSR文件便获得了，用于申请Certificate证书</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8AZNtS.png" alt="1"><br><strong>打开苹果的开发者平台，选择 Certificate，Identifiers&amp;Profiles 这个选项</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8AZtk8.png" alt="2"><br><strong>左边栏目中，选择 Certificate(证书) 选项，点击添加Certificate</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8AZdpQ.png" alt="3"><br><strong>在这个界面就可以创建证书了</strong><br>但是这里的选项很多，App相关的主要就是前三个：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Apple Development</td>
+<td align="center">用于开发调试，真机测试</td>
+</tr>
+<tr>
+<td>Apple Distribution</td>
+<td align="center">用于发布和上架</td>
+</tr>
+</tbody></table>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8AZJTf.png" alt="4"><br><strong>选择其中一个后，选择本地创建好的 CSR 文件 ，既可以创建证书</strong></p>
+<blockquote>
+<p>CSR文件是本地通过钥匙串获得的，提供CSR文件是为了向开发者平台证明当前的Mac电脑是安全稳定的。</p>
+</blockquote>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8AZG0P.png" alt="5"><br><strong>创建成功后就可以看到相关证书信息了</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8A1Em4.png" alt="6"><br><strong>选择 Profile 栏，选择添加 Profile</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8A1Z79.png" alt="7"><br><strong>根据我们的需求，选择需要创建的Profile类型</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iOS App Development</td>
+<td align="center">创建它需要bundleID+开发证书＋测试设备(在devices中添加)</td>
+</tr>
+<tr>
+<td>Ad Hoc (临时发布)</td>
+<td align="center">包含指定的设备信息，导出的ipa也只能安装到制定的设备中，常用于发布分配给测试人员的测试包</td>
+</tr>
+<tr>
+<td>App Store (正式发布)</td>
+<td align="center">创建需要bundle ID + 发布证书</td>
+</tr>
+</tbody></table>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8A1mkR.png" alt="8"><br><strong>然后选择这个 Profile 中，选择需要包含的 App ID</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8A1V0J.png" alt="9"><br><strong>选择对应的证书</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8A1kXF.png" alt="10"><br><strong>选择需要向 Profile 中添加的设备DeviceID</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8A1nt1.png" alt="11"><br><strong>最后给这个Profile文件取个名既可以完成创建。</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8A8RyT.md.png"><br><strong>最后在Xcode中，添加这个Profile，就可以完成这个Profile对应的需求了。</strong></p>
+<blockquote>
+<p>通常在 Debug 栏中，放 Development 描述文件。而 release 栏中，放 Distribution 描述文件。</p>
+<p>此外，如果只是个人开发者，其实不需要处理这么烦杂的证书流程，直接将这里的<code>Automatically manage signing</code> 选中，Xcode就会自动生成 开发和发布 所需要的证书，相当轻松。</p>
+</blockquote>
+<h2 id="APP-唯一标识符"><a href="#APP-唯一标识符" class="headerlink" title="APP 唯一标识符"></a>APP 唯一标识符</h2><ul>
+<li><p>UDID </p>
+<blockquote>
+<p>UDID的全称是Unique Device Identifier，顾名思义，它就是苹果IOS设备的唯一识别码，它由40个字符的字母和数字组成。<em><strong>iOS 5 之后UDID系统就取消了</strong></em></p>
+</blockquote>
+</li>
+<li><p>MAC Address </p>
+<blockquote>
+<p><em><strong>iOS 7 之后，苹果为了安全问题禁止获取了。</strong></em></p>
+</blockquote>
+</li>
+<li><p>IDFA （<strong>常用</strong>）</p>
+<blockquote>
+<p>IDFA的全称是Identifier for Advertision,中文意思是广告标识符。</p>
+</blockquote>
+<ol>
+<li>同一设备上所有APP的取值都相同</li>
+<li>可变不唯一，可关闭（在iPhone中的隐私-&gt;广告，可以修改和开闭IDFA）</li>
+<li>如果使用IDFA，注意判断用户是否禁止了IDFA</li>
+</ol>
+<p>  <code>import AdSupport</code></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let manager = ASIdentifierManager.shared()</span><br><span class="line">       if manager.isAdvertisingTrackingEnabled &#123;</span><br><span class="line">           return ASIdentifierManager.shared().advertisingIdentifier.uuidString</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IDFV</p>
+<blockquote>
+<p>IDFV的全称是Identifier for Vendor,中文意思是应用开发商标识符。</p>
+</blockquote>
+<ol>
+<li><p>同一设备上的所有APP的取值一般都是不同的，但是相同应用开发商的值是相同的</p>
+<blockquote>
+<p>这个和 App Store 或者 Bundle ID 来判断的。比如：   </p>
+<p>app的 Bundle ID 是 <code>com.companyName.xxxx</code>,那么只要前缀是<code>com.companyName</code>的app，其获取的IDFV就是一样的。所有<code>com.companyName.test</code>和<code>com.companyName.production</code>获取的值是一样的。</p>
+</blockquote>
+</li>
+<li><p>但是，当该公司旗下的 <strong>所有APP</strong> 都卸载后，再次安装该公司的APP，此时的IDFV会重置。</p>
+<p> <code>UIDevice.current.identifierForVendor?.uuidString</code></p>
+</li>
+</ol>
+</li>
+<li><p>第三方的OpenID</p>
+<blockquote>
+<p>很多公司开始对用户设置唯一标识符，这样避开了设备问题。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="打包上架"><a href="#打包上架" class="headerlink" title="打包上架"></a>打包上架</h2><p>当所有条件都已经准备好后，就可以开始打包上架了。</p>
+<p>首先在 Xcode 中，选择 Product -&gt; Archive ，这个时候就会显示一个打包界面。</p>
+<p><img src="https://s2.ax1x.com/2020/03/11/8EV1AK.md.png" alt="1"><br><strong>选择 Distribute App，进入打包的下一步</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8EVQ76.png" alt="2"><br><strong>根据选项，选择需要打包的类型</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8EVM0x.md.png" alt="3"><br><strong>选择直接打包上传AppStore，还是打包到本地</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8EVKn1.md.png" alt="4"><br><strong>选择自动配置描述文件，还是选择手动配置描述文件。配置完后就是正式的loading界面了</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8AZNtS.png" alt="5"><br><strong>然后打开开发者平台，选择 App Store Connect，进入相关界面后，选择 我的APP，就可以看到之前上传的App了，上面会显示 准备提交</strong></p>
+<hr>
+<p><img src="https://s2.ax1x.com/2020/03/11/8EeEQJ.md.png" alt="6"><br><strong>根据页面的提示，完成相应的内容，之后就可以提交审核了</strong></p>
+<h2 id="TestFilght"><a href="#TestFilght" class="headerlink" title="TestFilght"></a>TestFilght</h2><p>苹果官方的应用测试平台。</p>
+<p>在开发者平台中，打开具体 APP  的界面后，选择TestFilght,然后按要求添加测试人员。</p>
+<p><img src="https://s2.ax1x.com/2020/03/11/8EuJOJ.md.png"></p>
+<p>完成后，测试人员下载 TestFilght 这个APP，通过 测试平台 发放的URL，打开 TestFilght ，则会跳转到对应的APP下载界面，然后就可以下载测试了。</p>
+<blockquote>
+<p>现在的第三方测试平台也挺多的，很多也非常好用，考虑到有时候安卓和iOS会同期发布测试版本，所有很多时候都是使用第三方测试平台的。</p>
+</blockquote>
+</div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/iOS/">iOS</a></div><div class="notification is-danger">You need to set <code>install_url</code> to use ShareThis. Please set it in <code>_config.yml</code>.</div></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" href="/" target="_blank" rel="noopener" data-type="afdian"><span class="icon is-small"><i class="fas fa-charging-station"></i></span><span>Afdian.net</span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="/" alt="Alipay"></span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="buymeacoffee"><span class="icon is-small"><i class="fas fa-coffee"></i></span><span>Buy me a coffee</span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="patreon"><span class="icon is-small"><i class="fab fa-patreon"></i></span><span>Patreon</span></a><div class="notification is-danger">You forgot to set the <code>business</code> or <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.</div><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="/" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2018/10/30/IOS_UIview/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">iOS-剖析UIView</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2018/07/30/ApplePushNotification/"><span class="level-item">Apple Push Notification service</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">Comments</h3><div class="notification is-danger">You forgot to set the <code>shortname</code> for Disqus. Please set it in <code>_config.yml</code>.</div></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="SeaBrea"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">SeaBrea</p><p class="is-size-6 is-block">记录生活，记录学习</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">42</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">25</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/seabrea" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/seabrea"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Backend/"><span class="level-start"><span class="level-item">Backend</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Daily/"><span class="level-start"><span class="level-item">Daily</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/categories/Mobile/"><span class="level-start"><span class="level-item">Mobile</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/categories/OS/"><span class="level-start"><span class="level-item">OS</span></span><span class="level-end"><span class="level-item tag">13</span></span></a></li><li><a class="level is-mobile" href="/categories/Web/"><span class="level-start"><span class="level-item">Web</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-10-27T00:00:00.000Z">2021-10-27</time></p><p class="title"><a href="/2021/10/27/ReactRouter/">Router 路由</a></p><p class="categories"><a href="/categories/Web/">Web</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-06-27T00:00:00.000Z">2021-06-27</time></p><p class="title"><a href="/2021/06/27/ShellScript/">Shell Script</a></p><p class="categories"><a href="/categories/OS/">OS</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-12-14T16:00:00.000Z">2020-12-15</time></p><p class="title"><a href="/2020/12/15/FlutterBase/">Flutter基础</a></p><p class="categories"><a href="/categories/Mobile/">Mobile</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-11-23T16:00:00.000Z">2020-11-24</time></p><p class="title"><a href="/2020/11/24/Network/">计算机网络</a></p><p class="categories"><a href="/categories/OS/">OS</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-10-05T13:00:00.000Z">2020-10-05</time></p><p class="title"><a href="/2020/10/05/HowToUseGithub/">如何使用GitHub</a></p><p class="categories"><a href="/categories/Daily/">Daily</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">October 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">June 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/12/"><span class="level-start"><span class="level-item">December 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/11/"><span class="level-start"><span class="level-item">November 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">October 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">June 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">May 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">April 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/03/"><span class="level-start"><span class="level-item">March 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/01/"><span class="level-start"><span class="level-item">January 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/12/"><span class="level-start"><span class="level-item">December 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/06/"><span class="level-start"><span class="level-item">June 2019</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/03/"><span class="level-start"><span class="level-item">March 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/01/"><span class="level-start"><span class="level-item">January 2019</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/12/"><span class="level-start"><span class="level-item">December 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/11/"><span class="level-start"><span class="level-item">November 2018</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/10/"><span class="level-start"><span class="level-item">October 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/09/"><span class="level-start"><span class="level-item">September 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/07/"><span class="level-start"><span class="level-item">July 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/04/"><span class="level-start"><span class="level-item">April 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/12/"><span class="level-start"><span class="level-item">December 2017</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/11/"><span class="level-start"><span class="level-item">November 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/10/"><span class="level-start"><span class="level-item">October 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/03/"><span class="level-start"><span class="level-item">March 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/02/"><span class="level-start"><span class="level-item">February 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/C/"><span class="tag">C#</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MD5/"><span class="tag">MD5</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Network/"><span class="tag">Network</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/React/"><span class="tag">React</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SQL/"><span class="tag">SQL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Shell/"><span class="tag">Shell</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/TypeScript/"><span class="tag">TypeScript</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/UI/"><span class="tag">UI</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/flutter/"><span class="tag">flutter</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/go/"><span class="tag">go</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/iOS/"><span class="tag">iOS</span><span class="tag">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/markdown/"><span class="tag">markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/zsh/"><span class="tag">zsh</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/"><span class="tag">二进制</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"><span class="tag">位运算</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/"><span class="tag">字符编码</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><span class="tag">正则表达式</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%9F%A5%E8%AF%86%E4%BA%A7%E6%9D%83/"><span class="tag">知识产权</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%8F%E6%B5%8E/"><span class="tag">经济</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%87%AA%E4%B8%BB%E5%AD%A6%E4%B9%A0/"><span class="tag">自主学习</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/"><span class="tag">计算机原理</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.png" alt="BLOG" height="28"></a><p class="is-size-7"><span>&copy; 2022 Sea Brea</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>

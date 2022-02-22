@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>iOS内存管理与多线程 - BLOG</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="BLOG"><meta name="msapplication-TileImage" content="img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="BLOG"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="在iOS中我们如何进行内存管理"><meta property="og:type" content="blog"><meta property="og:title" content="iOS内存管理与多线程"><meta property="og:url" content="http://seabrea.xyz/2018/11/08/OC_HighLevel_Progamming/"><meta property="og:site_name" content="BLOG"><meta property="og:description" content="在iOS中我们如何进行内存管理"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://s2.ax1x.com/2020/03/09/89RURe.md.jpg"><meta property="og:image" content="http://ovdxbyvmj.bkt.clouddn.com/17-12-11/57558774.jpg"><meta property="og:image" content="http://ovdxbyvmj.bkt.clouddn.com/17-12-11/97509.jpg"><meta property="og:image" content="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/15895917.jpg"><meta property="og:image" content="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/75743705.jpg"><meta property="og:image" content="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/76815707.jpg"><meta property="og:image" content="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/89848889.jpg"><meta property="og:image" content="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/89843290.jpg"><meta property="og:image" content="http://ovdxbyvmj.bkt.clouddn.com/17-11-6/27527938.jpg"><meta property="og:image" content="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/8071023.jpg"><meta property="article:published_time" content="2018-11-08T08:57:00.000Z"><meta property="article:modified_time" content="2022-02-22T08:05:11.492Z"><meta property="article:author" content="Sea Brea"><meta property="article:tag" content="iOS"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://s2.ax1x.com/2020/03/09/89RURe.md.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://seabrea.xyz/2018/11/08/OC_HighLevel_Progamming/"},"headline":"iOS内存管理与多线程","image":["https://s2.ax1x.com/2020/03/09/89RURe.md.jpg","http://ovdxbyvmj.bkt.clouddn.com/17-12-11/57558774.jpg","http://ovdxbyvmj.bkt.clouddn.com/17-12-11/97509.jpg","http://ovdxbyvmj.bkt.clouddn.com/17-11-3/15895917.jpg","http://ovdxbyvmj.bkt.clouddn.com/17-11-3/75743705.jpg","http://ovdxbyvmj.bkt.clouddn.com/17-11-3/76815707.jpg","http://ovdxbyvmj.bkt.clouddn.com/17-11-3/89848889.jpg","http://ovdxbyvmj.bkt.clouddn.com/17-11-3/89843290.jpg","http://ovdxbyvmj.bkt.clouddn.com/17-11-6/27527938.jpg","http://ovdxbyvmj.bkt.clouddn.com/17-11-3/8071023.jpg"],"datePublished":"2018-11-08T08:57:00.000Z","dateModified":"2022-02-22T08:05:11.492Z","author":{"@type":"Person","name":"Sea Brea"},"publisher":{"@type":"Organization","name":"BLOG","logo":{"@type":"ImageObject","url":"http://seabrea.xyz/2018/11/08/OC_HighLevel_Progamming/img/avatar.png"}},"description":"在iOS中我们如何进行内存管理"}</script><link rel="canonical" href="http://seabrea.xyz/2018/11/08/OC_HighLevel_Progamming/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 6.0.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.png" alt="BLOG" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2018-11-08T08:57:00.000Z" title="2018/11/8 下午4:57:00">2018-11-08</time></span><span class="level-item">Updated&nbsp;<time dateTime="2022-02-22T08:05:11.492Z" title="2022/2/22 下午4:05:11">2022-02-22</time></span><span class="level-item"><a class="link-muted" href="/categories/Mobile/">Mobile</a></span><span class="level-item">28 minutes read (About 4259 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">iOS内存管理与多线程</h1><div class="content"><blockquote>
+<p>在iOS中我们如何进行内存管理</p>
+</blockquote>
+<p><img src="https://s2.ax1x.com/2020/03/09/89RURe.md.jpg"></p>
+<span id="more"></span>
+
+<h1 id="iOS内存管理与多线程"><a href="#iOS内存管理与多线程" class="headerlink" title="iOS内存管理与多线程"></a>iOS内存管理与多线程</h1><h2 id="自动引用计数（ARC）"><a href="#自动引用计数（ARC）" class="headerlink" title="自动引用计数（ARC）"></a>自动引用计数（ARC）</h2><h3 id="OC内存管理"><a href="#OC内存管理" class="headerlink" title="OC内存管理"></a>OC内存管理</h3><p>在OC中，内存管理的引用技术采用ARC（自动引用计数），MRC（手动引用计数）的老版本现在不再使用。</p>
+<p>OC的内存管理主要分为四个步骤：</p>
+<ol>
+<li>创建 [ new &#x2F; alloc &#x2F; copy &#x2F; mutableCopy ]</li>
+<li>持有 [ retain ]</li>
+<li>释放 [ release]</li>
+<li>废弃 [ dealloc ]</li>
+</ol>
+<p>事实上，在OC的内存管理中，是不用去考虑 <strong>计数</strong> 问题的，OC对象的内存管理，只需要注意几点就可以了:</p>
+<ol>
+<li>对象的创建者持有对象</li>
+<li>非对象的创建者也可以持有对象</li>
+<li>不需要持有对象的时候需要释放对象</li>
+<li>非自己持有的对象是无法去释放的</li>
+</ol>
+<blockquote>
+<p>在iOS开发中，上述内存管理的方法均不是来自OC自身，而是来自苹果官方的的 <strong>Cocoa框架</strong> 内的 <strong>Foundation框架类</strong> 中的 <strong>NSObject</strong>, <strong>NSObject</strong> 中包含 <strong>+ alloc</strong>类方法, <strong>- retain</strong> <strong>- release</strong> <strong>- dealloc</strong>实力方法</p>
+</blockquote>
+<p><strong>与其他语言的引用计数不同的是，OC的采用的是散列表作为引用计数的管理，其中内存块地址作为键值。这种设计能够保证即使内存块被损坏，只有这张表还在，就能顺通摸瓜找到对应的内存块地址</strong></p>
+<h3 id="autoRelease（自动释放池）"><a href="#autoRelease（自动释放池）" class="headerlink" title="autoRelease（自动释放池）"></a>autoRelease（自动释放池）</h3><p>作用类似C语言的 <strong>局部变量</strong></p>
+<p>autoRelease的使用：首先生成NSAutoReleasePool对象，而这个对象的属性则类似C语言的局部变量，调用对象的autoRelease实例方法，在NSAutoReleasePool结束生存周期后，所有调用过autoRelease实例方法的对象都将执行release操作。</p>
+<p>autoRelease常用于处理大量数据时，避免出现内存不足而闪退的现象。例如APP中同时处理大量图片等。</p>
+<p>OC中，实际上对象调用autoRelease都是调用的NSObject类的实例方法，会将对象加入正在运行的NSAutoReleasePool种。</p>
+<h3 id="ARC规则"><a href="#ARC规则" class="headerlink" title="ARC规则"></a>ARC规则</h3><p>OC中，通常编译单位可设置ARC有效&#x2F;无效，因此项目中可以出现 ARC有效&#x2F;无效 混合的情况。新项目中，通常均会使用ARC有效。</p>
+<blockquote>
+<p>xcode4.2及其以上版本中，文件会默认ARC有效的  </p>
+</blockquote>
+<h4 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h4><p>ARC有效时，对象类型必须附加所有权修饰符：</p>
+<ol>
+<li><code>__strong</code></li>
+<li><code>__weak</code></li>
+<li><code>__unsafe_unretained</code></li>
+<li><code>__autoreleasing</code></li>
+</ol>
+</br>
+
+<ul>
+<li><code>__strong</code></li>
+</ul>
+<p><code>__strong</code>是对象在不明确所有权修饰符时的默认修饰符。与<code>strong</code>一样，表示强引用，在ARC中，使用<code>__strong</code>后，则不必考虑retain和release的问题了，它自动做好处理的。<br>因为默认会使用<code>__strong</code>，使用通常创建对象时可以不加上<code>__strong</code>。</p>
+<ul>
+<li><code>__weak</code>（iOS5及其以上）</li>
+</ul>
+<p><code>__strong</code>并不能做到完美的内存管理，当两个对象互相强引用对方的时候，就会造成 <strong>循环引用</strong>，同用一个对象强引用自身的时候也会造成<strong>自引用(也是循环引用)<strong>，</strong>循环引用</strong>会导致对象不能正常得到释放而产生内存泄露，这个时候就需要<code>__weak</code>来解决了。<code>__weak</code>为对象提供弱引用，弱引用不能持有对象实例，因此不会产生循环引用的问题。</p>
+<p>另外，<code>__weak</code>在持有对象的被废弃的时候，弱引用会自动失效并被赋值为nil，可以通过检验弱引用是否为nil,就可以知道那个对象是否有效。</p>
+<ul>
+<li><code>__unsafe_unretained</code></li>
+</ul>
+<p>在作用上与<code>__weak</code>类似，在低于iOS5的版本也被用于代替<code>__weak</code>。但是<code>__unsafe_unretained</code>赋值给<code>__strong</code>对象时，是必须保证<code>__strong</code>对象存在的，不然会导致崩溃。</p>
+<ul>
+<li><code>__autoreleasing</code></li>
+</ul>
+<p>在iOS中，ARC有效时，会使用@autoreleasepool块来表示autoRelease：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@autoreleasepool &#123;</span><br><span class="line">    id __autoreleasing test = [[NSObject alloc] init];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而<code>__autoreleasing</code>的作用则是 <code>[test autorelease]</code>。</p>
+<h4 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h4><p>ARC有效时，必须遵循以下规则：</p>
+<ol>
+<li>禁止retain、release，autoRelease，retainCount [ARC会自动处理]</li>
+<li>禁止NSAllocateObject、NSDeallocateObject [使用alloc]</li>
+<li>遵守内存管理的命名规则</li>
+<li>禁止显式调用dealloc [ARC会自动调用dealloc]</li>
+<li>使用@autoreleasepool{}代替NSAutoReleasePool</li>
+<li>禁止NSZone [iOS有着更好的处理]</li>
+<li>对象类型变量不能成为C语言结构体成员</li>
+<li>不要显式转换<code>id</code> 和 <code>void *</code> [不得不用就要加上 <code>__brdige</code>]</li>
+</ol>
+<br/>
+
+<h3 id="ARC属性"><a href="#ARC属性" class="headerlink" title="ARC属性"></a>ARC属性</h3><p>ARC有效时，属性声明的属性与所有权修饰符的对应关系</p>
+<ul>
+<li><code>assign</code>            &#x3D;&#x3D;&#x3D;&gt; <code>__unsafe_unretained</code></li>
+<li><code>unsafe_unretained</code> &#x3D;&#x3D;&#x3D;&gt; <code>__unsafe_unretained</code></li>
+<li><code>retain</code>              &#x3D;&#x3D;&#x3D;&gt; <code>__strong</code></li>
+<li><code>strong</code>               &#x3D;&#x3D;&#x3D;&gt; <code>__strong</code></li>
+<li><code>copy</code>                   &#x3D;&#x3D;&#x3D;&gt; <code>__strong</code></li>
+<li><code>weak</code>                   &#x3D;&#x3D;&#x3D;&gt; <code>__weak</code></li>
+</ul>
+<h3 id="ARC实现"><a href="#ARC实现" class="headerlink" title="ARC实现"></a>ARC实现</h3><p>简单理解，</p>
+<p><code>__autoreleasing</code>则是 <code>[test autorelease]</code></p>
+<p><code>__strong</code>则是在对应地方插入好相应的retain和release方法；</p>
+<p><code>__weak</code>,使用weak表，将赋值对象的地址作为key值，weak修饰对象的地址作为value值，储存在表中，当对象被释放后，则将weak修饰对象赋值nil然后从表中移除。（使用weak修饰对象会比较消耗cpu资源，所以请在正确的地方使用）</p>
+<h2 id="Block"><a href="#Block" class="headerlink" title="Block"></a>Block</h2><p><strong>匿名的内联代码集合体，常用在代码回调上</strong></p>
+<p><strong>功能上与其他语言的 <code>闭包</code> , <code>lambda表达式</code> 相似</strong></p>
+<h3 id="Block的使用"><a href="#Block的使用" class="headerlink" title="Block的使用"></a>Block的使用</h3><p>基本结构如下：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">returnType (^blockName)(parameterTypes) = ^(parameters) &#123;</span><br><span class="line">    statements</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Block的创建方式"><a href="#Block的创建方式" class="headerlink" title="Block的创建方式"></a>Block的创建方式</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1. 申明Block并创建</span><br><span class="line">typedef void (^testBlock)(int);</span><br><span class="line">testBlock _block;</span><br><span class="line"></span><br><span class="line">2. 属性定义Block</span><br><span class="line">@property (nonatomic, copy) void (^testBlock)(int);</span><br><span class="line"></span><br><span class="line">3. 局部Block</span><br><span class="line">void (^testBlock)(int) = ^(int x) &#123;</span><br><span class="line">		NSLog(@&quot;test&quot;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Block作为一个函数的参数"><a href="#Block作为一个函数的参数" class="headerlink" title="Block作为一个函数的参数"></a>Block作为一个函数的参数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. 先定义</span><br><span class="line">typedef void (^parameterBlock)(int);</span><br><span class="line"></span><br><span class="line">- (void)test:(parameterBlock)blk &#123;</span><br><span class="line">	//statements</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2. 省略定义</span><br><span class="line">- (void)test:(void (^)(int))blk &#123;</span><br><span class="line">	//statements</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Block截取变量"><a href="#Block截取变量" class="headerlink" title="Block截取变量"></a>Block截取变量</h3><ul>
+<li>截取局部变量</li>
+</ul>
+<p>Block截取局部变量是直接进行了 <code>值拷贝</code> 操作，因此其截取的值是无法被修改的.<br>如果企图修改，XCode会报错，</p>
+<p>但是可以用<code>__Block</code>修饰准备在Block中改变一个变量的值  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">_block int x = 0;</span><br><span class="line">void (^myBlock)() = ^&#123;</span><br><span class="line">	++x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样修饰后，这个值就可以被修改了。原因是Block直接复制了其内存地址</p>
+<ul>
+<li>全局变量和静态变量</li>
+</ul>
+<p>截取全局变量和静态变量时是直接对对象进行引用，因此可以直接修改变量。</p>
+<h3 id="Block循环引用"><a href="#Block循环引用" class="headerlink" title="Block循环引用"></a>Block循环引用</h3><p>Block在使用的时候很容易出现循环引用。<br>如图：</p>
+<p><img src="http://ovdxbyvmj.bkt.clouddn.com/17-12-11/57558774.jpg"></p>
+<p>简单解释就是：某个对象持有了Block，但是Block又在代码块中调用了那个对象。</p>
+<p>通常的解决方案为 <strong>打破互相的强引用</strong>   </p>
+<p>下面是Self-Block循环引用解决方法例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__weak typeof(self) weakSelf = self;</span><br><span class="line">^ &#123;</span><br><span class="line">	weakSelf.xxxxxx;</span><br><span class="line">	[weakSelf yyyy];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>为了防止Block可能出现先于对象被释放的情况时，可以再加上一层strong。  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">__weak typeof(self) weakSelf = self;</span><br><span class="line">^ &#123;</span><br><span class="line">	__strong typeof(self) strongSelf = weakSelf;</span><br><span class="line">	weakSelf.xxxxxx;</span><br><span class="line">	[weakSelf yyyy];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Block对象模型"><a href="#Block对象模型" class="headerlink" title="Block对象模型"></a>Block对象模型</h3><h4 id="Block数据结构"><a href="#Block数据结构" class="headerlink" title="Block数据结构"></a>Block数据结构</h4><p><img src="http://ovdxbyvmj.bkt.clouddn.com/17-12-11/97509.jpg"></p>
+<ul>
+<li>isa指针 用于实现对象相关功能  </li>
+<li>invoke 函数指针，代码块实际上是个函数</li>
+<li>descriptor Block的描述信息，比如size等等</li>
+<li>variable Block所截取的对象</li>
+</ul>
+<p>Block用三种，在Block创建的时候，isa指针指向对应的类<br><code>全局Block(_NSConcreteGlobalBlock)</code>，<br><code>栈Block(_NSConcreteStackBlock)</code>，<br><code>堆Block(_NSConcreteMallocBlock)</code><br>(isa指向的三个类)</p>
+<h4 id="Block外部变量的复制"><a href="#Block外部变量的复制" class="headerlink" title="Block外部变量的复制"></a>Block外部变量的复制</h4><p>在没用<code>_block</code>修饰的外部变量或者对象，Block内部截取时，是直接进行了”值拷贝”，直接复制其数据结构存在新的内存地址中，并用被其内存结构中的variable所引用。如果是对象，则复制其指针。</p>
+<p>如果是用<code>_block</code>修饰了的外部变量和对象被Block截取的时候。Block会直接复制其对象或者值的引用地址，直接对其内存数据进行操作。</p>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><ul>
+<li>创建进程：创建所有必要的管理信息，创建完成后才会加入下一步</li>
+<li>就绪：获得了一切需要资源和管理信息</li>
+<li>运行：运行状态进程数小于等于系统处理器的总数</li>
+<li>阻塞：等待，睡眠</li>
+<li>终止：进程结束运行</li>
+</ul>
+<hr>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><blockquote>
+<p>线程是进程的基本执行单元，进程的任务都是在线程中执行的。其中主线程负责主要的进程任务，在iOS开发中，主线程通常为UI线程。</p>
+</blockquote>
+<p><img src="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/15895917.jpg"></p>
+<h3 id="多线程-1"><a href="#多线程-1" class="headerlink" title="多线程"></a>多线程</h3><blockquote>
+<p>多线程常用地方：</p>
+<ul>
+<li>网络请求</li>
+<li>图片加载</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>任务执行方式：</p>
+<ul>
+<li>串行</li>
+<li>并行</li>
+</ul>
+</blockquote>
+<p><img src="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/75743705.jpg"></p>
+<p><img src="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/76815707.jpg"></p>
+<h4 id="多线程执行原理"><a href="#多线程执行原理" class="headerlink" title="多线程执行原理"></a>多线程执行原理</h4><p><img src="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/89848889.jpg"></p>
+<ul>
+<li>单核操作系统主要是通过时间片来实现的，两个线程在不同的时间片上交替执行，完成多线程。</li>
+</ul>
+<p><img src="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/89843290.jpg"></p>
+<ul>
+<li>多核操作系统是把线程分配给不同的处理器来执行，完成真正的并行。</li>
+</ul>
+<h4 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h4><ul>
+<li><p>优点：</p>
+<ol>
+<li>简化了编程模型：高效的处理大型任务或者零散任务</li>
+<li>更加轻量级</li>
+<li>提高了效率和资源利用率</li>
+</ol>
+</li>
+<li><p>缺点：</p>
+<ol>
+<li>加强了程序设计的复杂性</li>
+<li>占用内存空间（不要乱用多线程）</li>
+<li>增加了CPU的调度开销，增加了CPU占有率</li>
+</ol>
+</li>
+</ul>
+<h4 id="iOS中多线程的实现技术方案"><a href="#iOS中多线程的实现技术方案" class="headerlink" title="iOS中多线程的实现技术方案"></a>iOS中多线程的实现技术方案</h4><ul>
+<li>pThread</li>
+<li>NSThread</li>
+<li>GCD</li>
+<li>NSOperation</li>
+</ul>
+<h5 id="pThread"><a href="#pThread" class="headerlink" title="pThread"></a>pThread</h5><p>多平台的多线程操作API，基于C语言的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">void *fun(void *data) &#123;</span><br><span class="line">    NSLog(@&quot;fun&quot;);</span><br><span class="line">    return NULL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)test &#123;</span><br><span class="line">    //创建线程</span><br><span class="line">    pthread_t t;</span><br><span class="line">    pthread_create(&amp;t, NULL, fun, NULL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ps:pThead在iOS中并不常用</p>
+<h5 id="NSThread"><a href="#NSThread" class="headerlink" title="NSThread"></a>NSThread</h5><p>经过苹果封装，完全面向对象。</p>
+<blockquote>
+<p>三种创建方式：</p>
+</blockquote>
+<ol>
+<li>方式一</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//单独设置NSThread变量是因为方便调试跟踪</span><br><span class="line">   NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];</span><br><span class="line">   [thread start];</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>方式二</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];</span><br><span class="line"></span><br><span class="line">//也可以直接使用Block</span><br><span class="line">[NSThread detachNewThreadWithBlock:^&#123;</span><br><span class="line">    [self run];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>方式三</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//这个函数来自NSObject</span><br><span class="line">[self performSelectorInBackground:@selector(run) withObject:nil];</span><br><span class="line"></span><br><span class="line">[self performSelector:@selector(run) onThread:([NSThread new]) withObject:nil waitUntilDone:nil];</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>设置优先级：</p>
+</blockquote>
+<p>setThreadPriority的值是在0~1之间的double值。值越高，执行该线程的概率越高。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];</span><br><span class="line"></span><br><span class="line">[thread setThreadPriority:0.5];</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>NSThread锁  </p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@synchronized(self)</span><br><span class="line">&#123;</span><br><span class="line">    // Everything between the braces is protected by the @synchronized directive.</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>@synchronized，代表这个方法加锁, 相当于不管哪一个线程（例如线程A），运行到这个方法时,都要检查有没有其它线程例如B正在用这个方法，有的话要等正在使用synchronized方法的线程B运行完这个方法后再运行此线程A,没有的话,直接运行。它包括两种用法：synchronized 方法和 synchronized 块。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//ticketsCondition 为一个NSCondition对象</span><br><span class="line">[ticketsCondition lock];</span><br><span class="line">//content</span><br><span class="line">[ticketsCondition unlock];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>NSCodition是一种特殊类型的锁，我们可以用它来同步操作执行的顺序。等待某个NSCondition的线程一直被lock，知道其他线程给那个condition发送了信号。</li>
+</ul>
+<h5 id="NSOperation"><a href="#NSOperation" class="headerlink" title="NSOperation"></a>NSOperation</h5><p>对于GCD的封装。</p>
+<p><img src="http://ovdxbyvmj.bkt.clouddn.com/17-11-6/27527938.jpg"></p>
+<p>使用方式:</p>
+<ul>
+<li>NSInvocationOperation</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:SEL object:nil];</span><br><span class="line">[operation start];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>NSBlockOperation</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^&#123;</span><br><span class="line">    NSLog(@&quot;test&quot;);</span><br><span class="line">&#125;];</span><br><span class="line">[operation start];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>NSBlockOperation<br>用于添加异步操作</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^&#123;</span><br><span class="line">     NSLog(@&quot;operation&quot;);</span><br><span class="line"> &#125;];</span><br><span class="line"> </span><br><span class="line"> NSOperationQueue *queue = [[NSOperationQueue alloc] init];</span><br><span class="line"> [queue addOperation:operation];</span><br><span class="line"> NSLog(@&quot;main&quot;);</span><br><span class="line"> </span><br><span class="line">result:</span><br><span class="line">DEMO[8360:12240295] main</span><br><span class="line">DEMO[8360:12240397] operation</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>自定义NSOperation<br>创建一个子类继承于NSOperation</p>
+</li>
+<li><p>setMaxConcurrentOperationCount最大线程数</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[queue setMaxConcurrentOperationCount:1]</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h5><blockquote>
+<p>iOS开发中比较常用的多线程技术，苹果官方说法为：异步执行任务的技术之一。</p>
+</blockquote>
+<p>首先明白 线程，任务，队列 的区别<br><img src="http://ovdxbyvmj.bkt.clouddn.com/17-11-3/8071023.jpg"></p>
+<h6 id="常见GCD使用"><a href="#常见GCD使用" class="headerlink" title="常见GCD使用"></a>常见GCD使用</h6><ul>
+<li>简单使用DEMO</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(dispatch_get_global_queue(0, 0), ^&#123;</span><br><span class="line">    // get Data</span><br><span class="line">    dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        //Update UI</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>dispatch_get_main_queue</p>
+<p>  由系统提供的主线程</p>
+</li>
+<li><p>dispatch_get_global_queue  </p>
+<p>  由系统提供的全局并发队列</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//  long identifier ： 优先级</span><br><span class="line">//  系统提供了三个优先级列举</span><br><span class="line">//	#define DISPATCH_QUEUE_PRIORITY_HIGH 2</span><br><span class="line">//	#define DISPATCH_QUEUE_PRIORITY_DEFAULT 0</span><br><span class="line">//	#define DISPATCH_QUEUE_PRIORITY_LOW (-2)</span><br><span class="line">//</span><br><span class="line">//</span><br><span class="line">//  unsigned long flags : 通常填 0 或者 NULL</span><br><span class="line">//</span><br><span class="line">dispatch_get_global_queue(long identifier, unsigned long flags)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>dispatch_queue_create  </p>
+<p>  创建队列</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;name&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">//DISPATCH_QUEUE_CONCURRENT，则这个队列是并发队列</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;name&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line">//DISPATCH_QUEUE_SERIAL，则这个队列是串行队列，一次在一个线程只执行一个任务。</span><br></pre></td></tr></table></figure>
+
+<p>当需要用多行程处理的数据会造成数据竞争的时候就使用DISPATCH_QUEUE_SERIAL更加安全。但是DISPATCH_QUEUE_SERIAL每次都会生成一个新的线程去处理程序，会造成计算压力。如果不是处理一些互不竞争的数据则正常使用DISPATCH_QUEUE_CONCURRENT吧</p>
+<ul>
+<li>dispatch_set_target_queue</li>
+</ul>
+<p>作用有二：</p>
+<blockquote>
+<ol>
+<li>用于改变队列的优先级，将目标队列与指定的队列优先级一致。</li>
+<li>让指定队列来成为目标队列的执行阶层</li>
+</ol>
+</blockquote>
+<p><strong>更改优先级</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue_1 = dispatch_queue_create(&quot;queue_1&quot;, NULL);</span><br><span class="line">    dispatch_queue_t queue_2 = dispatch_queue_create(&quot;queue_2&quot;, NULL);</span><br><span class="line">    </span><br><span class="line">    dispatch_async(queue_1, ^&#123;</span><br><span class="line">        NSLog(@&quot;queue_1&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue_2, ^&#123;</span><br><span class="line">        NSLog(@&quot;queue_2&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    dispatch_set_target_queue(queue_1, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0));</span><br><span class="line">    </span><br><span class="line">    dispatch_async(queue_1, ^&#123;</span><br><span class="line">        NSLog(@&quot;1&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue_2, ^&#123;</span><br><span class="line">        NSLog(@&quot;2&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    /*</span><br><span class="line">    结果：</span><br><span class="line">    queue_1</span><br><span class="line">    queue_2</span><br><span class="line">    2</span><br><span class="line">    1</span><br><span class="line">    */</span><br></pre></td></tr></table></figure>
+
+<p><strong>让指定队列来成为目标队列的执行阶层</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue_1 = dispatch_queue_create(&quot;queue_1&quot;, NULL);</span><br><span class="line">    dispatch_queue_t queue_2 = dispatch_queue_create(&quot;queue_2&quot;, NULL);</span><br><span class="line">    dispatch_queue_t queue_3 = dispatch_queue_create(&quot;queue_2&quot;, NULL);</span><br><span class="line">    </span><br><span class="line">    dispatch_async(queue_1, ^&#123;</span><br><span class="line">        NSLog(@&quot;queue_1&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue_2, ^&#123;</span><br><span class="line">        NSLog(@&quot;queue_2&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue_3, ^&#123;</span><br><span class="line">        NSLog(@&quot;queue_3&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    dispatch_queue_t queue = dispatch_queue_create(&quot;queue&quot;, NULL);</span><br><span class="line">    </span><br><span class="line">    dispatch_set_target_queue(queue_1, queue);</span><br><span class="line">    dispatch_set_target_queue(queue_2, queue);</span><br><span class="line">    dispatch_set_target_queue(queue_3, queue);</span><br><span class="line">    </span><br><span class="line">    dispatch_async(queue_1, ^&#123;</span><br><span class="line">        NSLog(@&quot;queue_1&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue_2, ^&#123;</span><br><span class="line">        NSLog(@&quot;queue_2&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue_3, ^&#123;</span><br><span class="line">        NSLog(@&quot;queue_3&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">        /*</span><br><span class="line">    结果：</span><br><span class="line">    queue_3</span><br><span class="line">    queue_2</span><br><span class="line">    queue_1</span><br><span class="line">    queue_1</span><br><span class="line">    queue_2</span><br><span class="line">    queue_3</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    让无序的三个串行队列变成有序的队列，可以有效避免几个串行队列的并行计算</span><br><span class="line">    */</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>dispatch_groupd </p>
+<p>  用于处理并发线程时，完全结束时的逻辑处理</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;dispachTest&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">dispatch_group_t group = dispatch_group_create();</span><br><span class="line">dispatch_group_async(group, queue, ^&#123;</span><br><span class="line">    //todo1</span><br><span class="line">&#125;);</span><br><span class="line">dispatch_group_async(group, queue, ^&#123;</span><br><span class="line">    //todo2</span><br><span class="line">&#125;);</span><br><span class="line">dispatch_group_notify(group, queue, ^&#123;</span><br><span class="line">    //finish</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>dispatch_barrier_async</p>
+<p>  插入任务</p>
+<p>  常用于并发队列中避免出现数据竞争的情况。比如在多线程读取数据，这时同时也需要写入数据，此时就有可能造成数据问题，因此使用dispatch_barrier_async就可以有效避免这个问题，并发队列会先等待dispatch_barrier_async执行完成后再继续执行。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;test&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    __block NSInteger x = 0;</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        NSLog(@&quot;%ld&quot;,x);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        NSLog(@&quot;%ld&quot;,x);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_barrier_async(queue, ^&#123;</span><br><span class="line">        x += 1;</span><br><span class="line">        NSLog(@&quot;%ld&quot;,x);</span><br><span class="line">        //此时写入数据，其它队列会等待这个写入完成。</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        NSLog(@&quot;%ld&quot;,x);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>dispatch_suspend dispatch_resume</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//线程队列挂起</span><br><span class="line">   dispatch\_suspend(queue);</span><br><span class="line">   </span><br><span class="line">   //线程队列恢复</span><br><span class="line">   dispatch\_resume(queue);</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li><p>dispatch_after</p>
+<p>  延迟多少秒执行，但是这个并不是准确的时间，可用于大致的情况下。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//该方法的第一个参数是开始时间，第二个参数是多少时间后，第三个参数是要执行的block。  </span><br><span class="line">//dispatch_after的真正含义是在多少秒后把任务添加进队列中，并不是表示在6秒后执行  </span><br><span class="line"></span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        //</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>dispatch_semaphore </p>
+<p>  信号量</p>
+<p>  就是一种可用来控制访问资源的数量的标识，设定了一个信号量，在线程访问之前，加上信号量的处理，则可告知系统按照我们指定的信号量数量来执行多个线程。</p>
+</li>
+</ul>
+<p>其实，这有点类似锁机制了，只不过信号量都是系统帮助我们处理了，我们只需要在执行线程之前，设定一个信号量值，并且在使用时，加上信号量处理方法就行了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">    // create(value) 中的value表示最大允许的线程数量</span><br><span class="line">    dispatch_semaphore_t semaphore = dispatch_semaphore_create(3);</span><br><span class="line">    </span><br><span class="line">    dispatch_queue_t queue = dispatch_queue_create(&quot;test&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    </span><br><span class="line">    // 信号量 先 “降” 后 “升”</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">        NSLog(@&quot;run 1&quot;);</span><br><span class="line">        sleep(2);</span><br><span class="line">        NSLog(@&quot;finish 1&quot;);</span><br><span class="line">        dispatch_semaphore_signal(semaphore);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">        NSLog(@&quot;run 2&quot;);</span><br><span class="line">        sleep(2);</span><br><span class="line">        NSLog(@&quot;finish 2&quot;);</span><br><span class="line">        dispatch_semaphore_signal(semaphore);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">        NSLog(@&quot;run 3&quot;);</span><br><span class="line">        sleep(2);</span><br><span class="line">        NSLog(@&quot;finish 3&quot;);</span><br><span class="line">        dispatch_semaphore_signal(semaphore);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">        NSLog(@&quot;run 4&quot;);</span><br><span class="line">        sleep(2);</span><br><span class="line">        NSLog(@&quot;finish 4&quot;);</span><br><span class="line">        dispatch_semaphore_signal(semaphore);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line"> run 2</span><br><span class="line"> run 1</span><br><span class="line"> run 3</span><br><span class="line"> finish 2</span><br><span class="line"> finish 1</span><br><span class="line"> finish 3</span><br><span class="line"> run 4</span><br><span class="line"> finish 4</span><br><span class="line"> </span><br><span class="line"> // 因为线程最好只允许3个，所以在1，2，3执行完成后才会执行4.</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="相关使用范例"><a href="#相关使用范例" class="headerlink" title="相关使用范例"></a>相关使用范例</h2><h3 id="异步加载图片"><a href="#异步加载图片" class="headerlink" title="异步加载图片"></a>异步加载图片</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];</span><br><span class="line">[self.view addSubview:self.imageView];</span><br><span class="line"></span><br><span class="line">NSString *url = @&quot;https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png&quot;;</span><br><span class="line"></span><br><span class="line">dispatch_async(dispatch_get_global_queue(0, 0), ^&#123;</span><br><span class="line">    NSLog(@&quot;开始异步下载图片&quot;);</span><br><span class="line">    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];</span><br><span class="line">    UIImage *image = [[UIImage alloc] initWithData:data];</span><br><span class="line">    sleep(3);</span><br><span class="line">    if(image) &#123;</span><br><span class="line">        dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            NSLog(@&quot;主线程显示图片&quot;);</span><br><span class="line">            [self.imageView setImage:image];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建单例"><a href="#创建单例" class="headerlink" title="创建单例"></a>创建单例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">static SingleTest *instanceObj = nil;</span><br><span class="line"></span><br><span class="line">+ (instancetype)instance &#123;</span><br><span class="line">    </span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        instanceObj = [[SingleTest alloc] init];</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    return instanceObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/iOS/">iOS</a></div><div class="notification is-danger">You need to set <code>install_url</code> to use ShareThis. Please set it in <code>_config.yml</code>.</div></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" href="/" target="_blank" rel="noopener" data-type="afdian"><span class="icon is-small"><i class="fas fa-charging-station"></i></span><span>Afdian.net</span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="/" alt="Alipay"></span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="buymeacoffee"><span class="icon is-small"><i class="fas fa-coffee"></i></span><span>Buy me a coffee</span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="patreon"><span class="icon is-small"><i class="fab fa-patreon"></i></span><span>Patreon</span></a><div class="notification is-danger">You forgot to set the <code>business</code> or <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.</div><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="/" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2018/12/15/MarkdownLangure/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">MarkDown使用</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2018/11/02/IOS_ComponentBased/"><span class="level-item">iOS-组件化</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">Comments</h3><div class="notification is-danger">You forgot to set the <code>shortname</code> for Disqus. Please set it in <code>_config.yml</code>.</div></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="SeaBrea"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">SeaBrea</p><p class="is-size-6 is-block">记录生活，记录学习</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">42</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">25</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/seabrea" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/seabrea"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Backend/"><span class="level-start"><span class="level-item">Backend</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Daily/"><span class="level-start"><span class="level-item">Daily</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/categories/Mobile/"><span class="level-start"><span class="level-item">Mobile</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/categories/OS/"><span class="level-start"><span class="level-item">OS</span></span><span class="level-end"><span class="level-item tag">13</span></span></a></li><li><a class="level is-mobile" href="/categories/Web/"><span class="level-start"><span class="level-item">Web</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-10-27T00:00:00.000Z">2021-10-27</time></p><p class="title"><a href="/2021/10/27/ReactRouter/">Router 路由</a></p><p class="categories"><a href="/categories/Web/">Web</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-06-27T00:00:00.000Z">2021-06-27</time></p><p class="title"><a href="/2021/06/27/ShellScript/">Shell Script</a></p><p class="categories"><a href="/categories/OS/">OS</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-12-14T16:00:00.000Z">2020-12-15</time></p><p class="title"><a href="/2020/12/15/FlutterBase/">Flutter基础</a></p><p class="categories"><a href="/categories/Mobile/">Mobile</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-11-23T16:00:00.000Z">2020-11-24</time></p><p class="title"><a href="/2020/11/24/Network/">计算机网络</a></p><p class="categories"><a href="/categories/OS/">OS</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-10-05T13:00:00.000Z">2020-10-05</time></p><p class="title"><a href="/2020/10/05/HowToUseGithub/">如何使用GitHub</a></p><p class="categories"><a href="/categories/Daily/">Daily</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">October 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">June 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/12/"><span class="level-start"><span class="level-item">December 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/11/"><span class="level-start"><span class="level-item">November 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">October 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">June 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">May 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">April 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/03/"><span class="level-start"><span class="level-item">March 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/01/"><span class="level-start"><span class="level-item">January 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/12/"><span class="level-start"><span class="level-item">December 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/06/"><span class="level-start"><span class="level-item">June 2019</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/03/"><span class="level-start"><span class="level-item">March 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/01/"><span class="level-start"><span class="level-item">January 2019</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/12/"><span class="level-start"><span class="level-item">December 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/11/"><span class="level-start"><span class="level-item">November 2018</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/10/"><span class="level-start"><span class="level-item">October 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/09/"><span class="level-start"><span class="level-item">September 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/07/"><span class="level-start"><span class="level-item">July 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/04/"><span class="level-start"><span class="level-item">April 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/12/"><span class="level-start"><span class="level-item">December 2017</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/11/"><span class="level-start"><span class="level-item">November 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/10/"><span class="level-start"><span class="level-item">October 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/03/"><span class="level-start"><span class="level-item">March 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/02/"><span class="level-start"><span class="level-item">February 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/C/"><span class="tag">C#</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MD5/"><span class="tag">MD5</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Network/"><span class="tag">Network</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/React/"><span class="tag">React</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SQL/"><span class="tag">SQL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Shell/"><span class="tag">Shell</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/TypeScript/"><span class="tag">TypeScript</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/UI/"><span class="tag">UI</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/flutter/"><span class="tag">flutter</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/go/"><span class="tag">go</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/iOS/"><span class="tag">iOS</span><span class="tag">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/markdown/"><span class="tag">markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/zsh/"><span class="tag">zsh</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/"><span class="tag">二进制</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"><span class="tag">位运算</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/"><span class="tag">字符编码</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><span class="tag">正则表达式</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%9F%A5%E8%AF%86%E4%BA%A7%E6%9D%83/"><span class="tag">知识产权</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%8F%E6%B5%8E/"><span class="tag">经济</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%87%AA%E4%B8%BB%E5%AD%A6%E4%B9%A0/"><span class="tag">自主学习</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/"><span class="tag">计算机原理</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.png" alt="BLOG" height="28"></a><p class="is-size-7"><span>&copy; 2022 Sea Brea</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>

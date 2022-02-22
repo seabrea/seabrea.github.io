@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>iOS 开发整理 - BLOG</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="BLOG"><meta name="msapplication-TileImage" content="img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="BLOG"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="文章不涉及语言部分，代码部分Objective-C和Swift都有可能使用。 文章内容以APP开发为主，以及开发相关的设计模式、设计规范和相关原理。"><meta property="og:type" content="blog"><meta property="og:title" content="iOS 开发整理"><meta property="og:url" content="http://seabrea.xyz/2020/01/02/Base_for_iOS/"><meta property="og:site_name" content="BLOG"><meta property="og:description" content="文章不涉及语言部分，代码部分Objective-C和Swift都有可能使用。 文章内容以APP开发为主，以及开发相关的设计模式、设计规范和相关原理。"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://s2.ax1x.com/2020/03/09/89RNGD.md.jpg"><meta property="og:image" content="https://docs-assets.developer.apple.com/published/722508d93c/1eb44f8d-1907-4949-9208-f2fb7f3ffd1b.png"><meta property="og:image" content="https://docs-assets.developer.apple.com/published/a84db79dea/50390428-f9f2-4cbc-bd99-1cacca4f0617.png"><meta property="og:image" content="https://raw.githubusercontent.com/SDWebImage/SDWebImage/master/Docs/Diagrams/SDWebImageHighLevelDiagram.jpeg"><meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2452209-5b5bcf848e418c93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/597"><meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2452209-199bbc982cf50a3b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1150"><meta property="og:image" content="https://img-blog.csdn.net/20180108194234045"><meta property="article:published_time" content="2020-01-02T13:00:00.000Z"><meta property="article:modified_time" content="2022-02-22T08:05:19.349Z"><meta property="article:author" content="Sea Brea"><meta property="article:tag" content="iOS"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://s2.ax1x.com/2020/03/09/89RNGD.md.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://seabrea.xyz/2020/01/02/Base_for_iOS/"},"headline":"iOS 开发整理","image":["https://s2.ax1x.com/2020/03/09/89RNGD.md.jpg","https://docs-assets.developer.apple.com/published/722508d93c/1eb44f8d-1907-4949-9208-f2fb7f3ffd1b.png","https://docs-assets.developer.apple.com/published/a84db79dea/50390428-f9f2-4cbc-bd99-1cacca4f0617.png"],"datePublished":"2020-01-02T13:00:00.000Z","dateModified":"2022-02-22T08:05:19.349Z","author":{"@type":"Person","name":"Sea Brea"},"publisher":{"@type":"Organization","name":"BLOG","logo":{"@type":"ImageObject","url":"http://seabrea.xyz/2020/01/02/Base_for_iOS/img/avatar.png"}},"description":"文章不涉及语言部分，代码部分Objective-C和Swift都有可能使用。 文章内容以APP开发为主，以及开发相关的设计模式、设计规范和相关原理。"}</script><link rel="canonical" href="http://seabrea.xyz/2020/01/02/Base_for_iOS/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 6.0.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.png" alt="BLOG" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-01-02T13:00:00.000Z" title="2020/1/2 下午9:00:00">2020-01-02</time></span><span class="level-item">Updated&nbsp;<time dateTime="2022-02-22T08:05:19.349Z" title="2022/2/22 下午4:05:19">2022-02-22</time></span><span class="level-item"><a class="link-muted" href="/categories/Mobile/">Mobile</a></span><span class="level-item">an hour read (About 11482 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">iOS 开发整理</h1><div class="content"><blockquote>
+<p>文章不涉及语言部分，代码部分<code>Objective-C</code>和<code>Swift</code>都有可能使用。</p>
+<p>文章内容以APP开发为主，以及开发相关的设计模式、设计规范和相关原理。</p>
+</blockquote>
+<p><img src="https://s2.ax1x.com/2020/03/09/89RNGD.md.jpg"></p>
+<span id="more"></span>
+
+<h1 id="iOS-开发整理"><a href="#iOS-开发整理" class="headerlink" title="iOS 开发整理"></a>iOS 开发整理</h1><h2 id="UI开发"><a href="#UI开发" class="headerlink" title="UI开发"></a>UI开发</h2><h3 id="UIView-视图"><a href="#UIView-视图" class="headerlink" title="UIView (视图)"></a>UIView (视图)</h3><p><strong>UIView在iOS中则是在屏幕上用来管理一块矩形区域的对象，也是iOS开发中最为基础的UI控件。</strong></p>
+<p>开发中UIView的作用常用的有两个：  </p>
+<ol>
+<li>布局  </li>
+<li>管理子View</li>
+<li>管理区域内的事件</li>
+<li>渲染图像和动画</li>
+</ol>
+<p><strong>布局</strong>主要指的是 View 的大小和位置，依靠的是UIView的 frame 属性。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UIView *view = [[UIView alloc] init];  // 创建一个UIView</span><br><span class="line">view.frame = CGRectMake(10,20,30,40);  // view坐标 (10,20),view的宽高(40,50)</span><br></pre></td></tr></table></figure>
+
+<p><strong>管理子View</strong>代表UIView具有容器属性，可以通过 <code>addSubview方法</code> 在一个UIView中添加子UIView。<br>而对于拥有多个子View的复杂View，UIView通常采用的是<strong>栈管理</strong>来处理所有的同级的子View。当子View出现重叠现象的时候，优先显示的则是后入栈的View。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UIView *superView = [[UIView alloc] init];  </span><br><span class="line">UIView *subView = [[UIView alloc] init];  </span><br><span class="line"></span><br><span class="line">[superView addSubview: subView];</span><br></pre></td></tr></table></figure>
+
+<p><strong>管理区域内的事件</strong>是因为 UIView 继承自 UIResponder 。<br>UIResponder 是所有事件响应的基石，为整个事件查找过程提供了处理能力, UIView继承自UIResponder, 也就拥有相关的事件处理能力。因此 UIView 具有响应触摸事件的能力。</p>
+<p><strong>渲染图像和动画</strong>的特性主要在于 UIView 下面的 CALayer 。CALayer直接继承自NSObject，所以它不具备事件能力，只用于绘制内容，而UIView则是Layer的代理，Layer依靠UIView提供的容器显示绘制内容。<br>CALayer 在iOS中等同一个纹理。CALayer中的content属性就指向了一个缓存区，用于放置bitmap。</p>
+<p><strong>UIView</strong>也拥有他的生命周期。</p>
+<p>在 子View 添加到 父View 的过程中，会经历下面几个函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)willMoveToSuperview:(nullable UIView *)newSuperview;</span><br><span class="line">- (void)didMoveToSuperview;</span><br><span class="line">- (void)willMoveToWindow:(nullable UIWindow *)newWindow;</span><br><span class="line">- (void)didMoveToWindow;</span><br></pre></td></tr></table></figure>
+
+<p>通过实际的测试我们会知道顺序为：<br><strong>willMoveToSuperview -&gt; didMoveToSuperview -&gt; willMoveToWindow -&gt; didMoveToWindow。</strong><br>先添加到父View上面，最后在Window上面显示出来。</p>
+<h3 id="UIViewController-视图控制器"><a href="#UIViewController-视图控制器" class="headerlink" title="UIViewController (视图控制器)"></a>UIViewController (视图控制器)</h3><p><strong>UIViewController</strong>，本身包含一个自身的UIView，通常作为一个控制器和容器，管理其下的所有View和子控制器。</p>
+<p>开发中，常见与每个界面都有一个属于自己的 UIViewController ，界面内的相关内容都在这个 UIViewController 中处理。</p>
+<p>UIViewController的生命周期执行顺序为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">+ (void)initialize &#123;</span><br><span class="line">    NSLog(@&quot;类初始化方法：initialize &quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)init &#123;</span><br><span class="line">     self = [super init];</span><br><span class="line">    NSLog(@&quot;实例初始化方法：init&quot;);</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)loadView &#123;</span><br><span class="line">    [super loadView];</span><br><span class="line">    NSLog(@&quot;加载视图：loadView&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark- life cycle</span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    NSLog(@&quot;将要加载视图：viewDidLoad&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)viewWillAppear:(BOOL)animated &#123;</span><br><span class="line">    [super viewWillAppear:animated];</span><br><span class="line">    NSLog(@&quot;视图将要出现：viewWillAppear:(BOOL)animated&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)viewWillLayoutSubviews &#123;</span><br><span class="line">    [super viewWillLayoutSubviews];</span><br><span class="line">    NSLog(@&quot;将要布局子视图：viewWillLayoutSubviews&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)viewDidLayoutSubviews &#123;</span><br><span class="line">    [super viewDidLayoutSubviews];</span><br><span class="line">    NSLog(@&quot;已经布局子视图：viewDidLayoutSubviews&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)viewDidAppear:(BOOL)animated &#123;</span><br><span class="line">    [super viewDidAppear:animated];</span><br><span class="line">    NSLog(@&quot;视图已经出现：viewDidAppear:(BOOL)animated&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)viewWillDisappear:(BOOL)animated &#123;</span><br><span class="line">    [super viewWillDisappear:animated];</span><br><span class="line">    NSLog(@&quot;视图将要消失：viewWillDisappear:(BOOL)animated);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)viewDidDisappear:(BOOL)animated &#123;</span><br><span class="line">    [super viewDidDisappear:animated];</span><br><span class="line">    NSLog(@&quot;视图已经消失：viewDidDisappear:(BOOL)animated&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)dealloc &#123;</span><br><span class="line">    NSLog(@&quot;释放：dealloc&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相关的业务可以在对应的函数中处理。</p>
+<h3 id="TabBar样式页面构建"><a href="#TabBar样式页面构建" class="headerlink" title="TabBar样式页面构建"></a>TabBar样式页面构建</h3><p>TabBar是最常见的iOS视图构建方式，常见于App的底部，由多个按钮组成，点击不同的按钮会切换不同的页面。</p>
+<p>我们通常使用<code>UITabBarController</code>来管理TabBar以及用于切换页面的各个UIViewController。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 创建不同的UIViewControll</span><br><span class="line">let firstNavi = UINavigationController(rootViewController: UIViewController())</span><br><span class="line">firstNavi.viewControllers.first?.view.backgroundColor = .red</span><br><span class="line">firstNavi.tabBarItem.title = &quot;First&quot;</span><br><span class="line">            </span><br><span class="line">let secondNavi = UINavigationController(rootViewController: UIViewController())</span><br><span class="line">secondNavi.viewControllers.first?.view.backgroundColor = .blue</span><br><span class="line">secondNavi.tabBarItem.title = &quot;Second&quot;</span><br><span class="line">            </span><br><span class="line">// 创建TabBarController，并添加需要控制的UIViewController</span><br><span class="line">let tabbarViewController = TabBarController()</span><br><span class="line">tabbarViewController.viewControllers = [firstNavi, secondNavi]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Navigation管理页面跳转"><a href="#Navigation管理页面跳转" class="headerlink" title="Navigation管理页面跳转"></a>Navigation管理页面跳转</h3><p>Navigation使用 <strong>栈管理页面</strong> ，常用两种操作：  </p>
+<ol>
+<li>push</li>
+<li>pop</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 后面的布尔值判断是否需要动画效果</span><br><span class="line">navigationController?.pushViewController(NewViewController(), animated: true)</span><br><span class="line"></span><br><span class="line">navigationController?.popViewController(animated: true)</span><br></pre></td></tr></table></figure>
+
+<h3 id="UITableView-的使用"><a href="#UITableView-的使用" class="headerlink" title="UITableView 的使用"></a>UITableView 的使用</h3><h4 id="delegate-简介"><a href="#delegate-简介" class="headerlink" title="delegate 简介"></a>delegate 简介</h4><p>delegate是方便iOS开发使用代理模式。</p>
+<p>在iOS中，设计者先设计好一套delegate，然后在具体的实际直接调用delegate即可。<br>使用者则按需求实现对应的方法，并让<code>delegate = self</code>即可。</p>
+<p>iOS中的delegate是基于协议protocol完成的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// A类中设计一个协议，协议中定义相关接口</span><br><span class="line">// protocol如果继承了AnyObject表示这个协议只用于Class使用。</span><br><span class="line"></span><br><span class="line">protocol CheckClickProtocol: AnyObject &#123;</span><br><span class="line">    </span><br><span class="line">    func navigationFinish();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Class A  &#123;</span><br><span class="line">// 创建一个delegate变量方便外部调用，使用weak是避免循环引用(如果protocol没有继承AnyObject则不需要weak)</span><br><span class="line">	weak var delegate: CheckClickProtocol?</span><br><span class="line">	</span><br><span class="line">	func show() &#123;</span><br><span class="line">	// 在需要的时机调用delegate</span><br><span class="line">		delegate?.navigationFinish()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Class B 继承协议CheckClickProtocol</span><br><span class="line">Class B: CheckClickProtocol &#123;</span><br><span class="line">	// Class B 实现了协议内的方法</span><br><span class="line">	func navigationFinish() &#123;</span><br><span class="line">        print(&quot;跳转完成&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 创建Class A的实例，并将delegate赋予self。</span><br><span class="line">    A().delegate = self</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样一个代理也就完成了，当调用<code>delegate?.navigationFinish()</code>，就调用Class B中的实现方法。</p>
+<h4 id="UITableView"><a href="#UITableView" class="headerlink" title="UITableView"></a>UITableView</h4><p>UITableView 是iOS开发中最常用的组建，用于表示竖列表。</p>
+<p><img src="https://docs-assets.developer.apple.com/published/722508d93c/1eb44f8d-1907-4949-9208-f2fb7f3ffd1b.png" alt="官网图"><br>通常有两种Style，左边是Plain模式，右边是Group模式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个UITableView</span><br><span class="line">var tableView: UITableView?</span><br><span class="line">tableView = UITableView(frame: UIScreen.main.bounds, style: .plain)</span><br><span class="line">tableView?.delegate = self</span><br><span class="line">tableView?.dataSource = self</span><br><span class="line">tableView?.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: &quot;cell&quot;)</span><br><span class="line">// 添加到页面上</span><br><span class="line">view.addSubview(tableView!)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>UITableView的主要功能需要使用 UITableViewDelegate 和 UITableViewDataSource 两个协议来实现的。</p>
+<ol>
+<li>UITableViewDataSource 用作操作数据内容</li>
+<li>UITableViewDelegate 用于处理滚动和展示的相关逻辑</li>
+</ol>
+<p>UITableViewDataSource常用协议方法：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 设置每个组有多少行</span><br><span class="line">func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int</span><br><span class="line">// 设置每行的Cell</span><br><span class="line">func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell</span><br><span class="line">// 设置有多少组</span><br><span class="line">func numberOfSections(in tableView: UITableView) -&gt; Int </span><br><span class="line">// 设置每组的组头内容</span><br><span class="line">func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -&gt; String? </span><br><span class="line">// 设置每组的组尾内容</span><br><span class="line">func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -&gt; String?</span><br></pre></td></tr></table></figure>
+
+<p>UITableViewDelegate常用协议方法：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 设置每行高度</span><br><span class="line">func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -&gt; CGFloat</span><br><span class="line">// 设置组头的高度</span><br><span class="line">func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -&gt; CGFloat</span><br><span class="line">// 设置组尾的高度</span><br><span class="line">func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -&gt; CGFloat</span><br><span class="line">// 设置自定义组头</span><br><span class="line">func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -&gt; UIView?</span><br><span class="line">// 设置自定义组尾</span><br><span class="line">func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -&gt; UIView?</span><br><span class="line">// 点击事件处理</span><br><span class="line">func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)</span><br></pre></td></tr></table></figure>
+
+<p>按照相关协议可以轻松完成相关内容。</p>
+<h3 id="UICollectionView-的使用"><a href="#UICollectionView-的使用" class="headerlink" title="UICollectionView 的使用"></a>UICollectionView 的使用</h3><p>UICollectionView是一种流式布局的表格控件。</p>
+<p><img src="https://docs-assets.developer.apple.com/published/a84db79dea/50390428-f9f2-4cbc-bd99-1cacca4f0617.png"></p>
+<p>UICollectionView的使用逻辑大部分都和UITableView是一样的，但是也有不同点：</p>
+<ol>
+<li>UICollectionViewCell 必须先regist注册，然后在函数 cellForItemAt 中使用</li>
+<li>UICollectionView不是用<strong>行</strong>来代表每个内容的，而是用的<strong>item</strong></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 创建布局模式</span><br><span class="line">let collectionViewLayout = UICollectionViewFlowLayout()</span><br><span class="line">// 创建UICollectionView</span><br><span class="line">collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewLayout)</span><br><span class="line">// 设置代理</span><br><span class="line">collectionView?.delegate = self</span><br><span class="line">collectionView?.dataSource = self</span><br><span class="line">// 注册Cell</span><br><span class="line">collectionView?.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: &quot;cell&quot;)</span><br><span class="line">// 添加到页面上</span><br><span class="line"> view.addSubview(collectionView!)</span><br></pre></td></tr></table></figure>
+
+<p>而对应的基本协议：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 设置需要展示的个数</span><br><span class="line">func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -&gt; Int &#123;</span><br><span class="line">	return 500</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">// 设置每个Cell</span><br><span class="line">func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -&gt; UICollectionViewCell &#123;</span><br><span class="line">        </span><br><span class="line">	let cell = collectionView.dequeueReusableCell(withReuseIdentifier: &quot;cell&quot;, for: indexPath)</span><br><span class="line">	cell.backgroundColor = .orange</span><br><span class="line">	return cell</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="UICollectionViewLayout"><a href="#UICollectionViewLayout" class="headerlink" title="UICollectionViewLayout"></a>UICollectionViewLayout</h4><p>UICollectionViewLayout 是用于生成UICollectionView的所有布局信息的抽象类，所有自定义的用于UICollectionView的Layout都需要继承UICollectionViewLayout。</p>
+<p>而UICollectionViewFlowLayout则是由系统提供的一个布局信息。</p>
+<p>在Layout中有个三个基本属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 设置每个item的大小</span><br><span class="line">collectionViewLayout.itemSize = CGSize(width: 100,height: 100)</span><br><span class="line">// 设置每行的最小间距</span><br><span class="line">collectionViewLayout.minimumLineSpacing = 20</span><br><span class="line">// 设置每个item左右之间的最小间距</span><br><span class="line">collectionViewLayout.minimumInteritemSpacing = 20</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里值得注意的是，minimumLineSpacing 和 minimumInteritemSpacing 只是代表着最小间距，而不是实际间距，因为itemSize过小时，这个间距会增大，如果itemSize过大时，这个间距会变小，等间距小到minimumLineSpacing或minimumInteritemSpacing时，间距将不会小于这个最小值。</p>
+</blockquote>
+<p>当然，也有更加细致的处理方式，那就是UICollectionViewDelegateFlowLayout，在使用了UICollectionViewDelegateFlowLayout委托后，可以根据里面定义的协议来处理相关内容。</p>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 处理Item的大小</span><br><span class="line">func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -&gt; CGSize &#123;</span><br><span class="line">        </span><br><span class="line">     return CGSize(width: 100, height: 100)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="UICollectionView-实现瀑布流"><a href="#UICollectionView-实现瀑布流" class="headerlink" title="UICollectionView 实现瀑布流"></a>UICollectionView 实现瀑布流</h4><p>todo</p>
+<h3 id="UIScrollView的使用"><a href="#UIScrollView的使用" class="headerlink" title="UIScrollView的使用"></a>UIScrollView的使用</h3><p>UIScrollView 是开发中最常见的控件之一，用于视图滚动上面。<br>UIScrollView 的原理：  </p>
+<ol>
+<li>UIScrollView等于只显示视图的一部分，其它部分遮罩起来  </li>
+<li>通过变化UIScrollView的bounds属性来起到移动的效果</li>
+</ol>
+<p><code>class UIScrollView : UIView</code></p>
+<p>UIScrollView中有三个基本属性：</p>
+<ul>
+<li>contentSize contentSize是整个scrollview的可滚动区域  </li>
+<li>contentOffset contentOffset表示了scrollview的移动</li>
+<li>contentInset contentInset用于简单的改变滚动规则（更改滚动区域等）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">func createScrollView() &#123;</span><br><span class="line">// 创建一个ScrollView</span><br><span class="line">    let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))</span><br><span class="line">    </span><br><span class="line">    // 设置滑动模式</span><br><span class="line">    scrollView.isPagingEnabled = true</span><br><span class="line">    // 设置滑动内容总面积</span><br><span class="line">    scrollView.contentSize = CGSize(width: view.bounds.width * 2, height: view.bounds.height)</span><br><span class="line">    // 重置滑动区域位置</span><br><span class="line">    scrollView.contentOffset = CGPoint.zero</span><br><span class="line">    </span><br><span class="line">    // 添加内容</span><br><span class="line">    for _ in 0...1 &#123;</span><br><span class="line">        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))</span><br><span class="line">        scrollView.addSubview(view)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // scrollView 添加到显示页面</span><br><span class="line">    view.addSubview(scrollView)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="UIScrollViewDelegate"><a href="#UIScrollViewDelegate" class="headerlink" title="UIScrollViewDelegate"></a>UIScrollViewDelegate</h4><p>当然，UIScrollView也有着一套协议，只要遵循 UIScrollViewDelegate 即可</p>
+<p>其中常见的协议内容是：</p>
+<p>scrollViewDidScroll:  </p>
+<blockquote>
+<p>滑动监听</p>
+</blockquote>
+<p>scrollViewWillBeginDragging:  </p>
+<blockquote>
+<p>开始滚动时调用一次  </p>
+</blockquote>
+<p>scrollViewWillEndDragging:withVelocity:targetContentOffset:  </p>
+<blockquote>
+<p>didEndDragging前调用,滑动scrollView，并且手指离开时执行。一次有效滑动，只执行一次。  </p>
+</blockquote>
+<p>scrollViewDidEndDragging:willDecelerate:  </p>
+<blockquote>
+<p>滑动视图，当手指离开屏幕那一霎那，调用该方法。一次有效滑动，只执行一次。</p>
+</blockquote>
+<p>scrollViewShouldScrollToTop:  </p>
+<blockquote>
+<p>指示当用户点击状态栏后，滚动视图是否能够滚动到顶部。需要设置滚动视图的属性  </p>
+</blockquote>
+<p>scrollViewDidScrollToTop:</p>
+<blockquote>
+<p>当滚动视图滚动到最顶端后，执行该方法  </p>
+</blockquote>
+<p>scrollViewWillBeginDecelerating:  </p>
+<blockquote>
+<p>滑动减速时调用该方法。</p>
+</blockquote>
+<p>scrollViewDidEndDecelerating:  </p>
+<blockquote>
+<p>滚动视图减速完成，滚动将停止时，调用该方法。一次有效滑动，只执行一次</p>
+</blockquote>
+<h4 id="UIScrollView的属性"><a href="#UIScrollView的属性" class="headerlink" title="UIScrollView的属性"></a>UIScrollView的属性</h4><ul>
+<li>scrollEnabled ： UIScrollView能否滑动 ， 默认为true</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open var isScrollEnabled: Bool</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>directionalLockEnabled ： UIScrollView是否限制滑动方向，true则为只能单一方向滑动，false则是不限制，默认为false</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open var isDirectionalLockEnabled: Bool</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>scrollsToTop : 点击状态栏后回到scrollView顶部，此属性默认为true，但是同期有多个scrollview时会失效，要将不需要此功能的scrollview及其子类的scrollsToTop设为false</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open var scrollsToTop: Bool</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>scrollRectToVisible:animated: : 在可滚动范围内，滚动到一个未显示区域。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open func scrollRectToVisible(_ rect: CGRect, animated: Bool)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>pagingEnabled : 是否支持分页 ，默认为false</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open var isPagingEnabled: Bool</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>bounces : 是否支持弹簧  ，默认支持</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open var bounces: Bool</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>alwaysBounceVertical | alwaysBounceHorizontal : 在bounces为YES时，设置垂直或者竖直反弹是否有效  ，默认均为false</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">open var alwaysBounceVertical: Bool</span><br><span class="line">open var alwaysBounceHorizontal: Bool</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>tracking ： 用户按上屏幕时，返回true</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open var isTracking: Bool &#123; get &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>touchesShouldBegin:withEvent:inContentView: : 在子类中重写，点击屏幕时，如果处于一个可交互的视图上，则调用此函数，并且返回为false的话，该子视图的交互无效</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open func touchesShouldBegin(_ touches: Set&lt;UITouch&gt;, with event: UIEvent?, in view: UIView) -&gt; Bool</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>touchesShouldCancel: 返回值true，发生滚动， touch不在传递给子视图， false则不滚动，touch 传递给子视图<br>canCancelContentTouches： 如果是false ，即使touch move，也不滚动的，如果是true， <code>- tracking</code>后，手指移动，会调用 touchesShouldCancelInContentView 方法；</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">open var canCancelContentTouches: Bool</span><br><span class="line">open func touchesShouldCancel(in view: UIView) -&gt; Bool</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>delaysContentTouches : 默认值为true；如果设置为false，则无论手指移动的多么快，始终都会将触摸事件传递给内部控件；设置为NO可能会影响到UIScrollView的滚动功能。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open var delaysContentTouches: Bool</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>dragging : 在scrollview上面，按着时为true，松开为false</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open var isDragging: Bool &#123; get &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>decelerating : 抬起手指后，内容是否滑动</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open var isDecelerating: Bool &#123; get &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>decelerationRate : 手指放开后的减速率</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open var decelerationRate: UIScrollView.DecelerationRate</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Scroll Indicator  滑动控制器</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- indicatorStyle //滚动控制器风格</span><br><span class="line">- scrollIndicatorInsets //表示滚动指示器从封闭滚动视图中被嵌入的距离。</span><br><span class="line">- showsHorizontalScrollIndicator</span><br><span class="line">- showsVerticalScrollIndicator</span><br><span class="line">- flashScrollIndicators //短暂地显示滚动指示器。</span><br></pre></td></tr></table></figure>
+
+<h3 id="UILable的使用"><a href="#UILable的使用" class="headerlink" title="UILable的使用"></a>UILable的使用</h3><p>用于展示一行或者多行 read-only 的文字。</p>
+<p><code>class UILabel : UIView</code></p>
+<p>常用属性：</p>
+<ol>
+<li>text 文字展示</li>
+<li>textColor 字体颜色</li>
+<li>font 字体型号</li>
+<li>textAlignment 对齐方式</li>
+<li>backgroundColor 背景色</li>
+<li>numberOfLines 最大展示行数</li>
+<li>lineBreakMode 文字超出后的，表示省略的小数点出现的位置</li>
+<li>sizeToFit() 让UILabel的面积大小去适应文字内容大小，以确保文字能被完全显示</li>
+</ol>
+<p>Ex.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let showTxt = UILabel(frame: CGRect(x: 100, y: 100, width: 200, height: 50))</span><br><span class="line"></span><br><span class="line">showTxt.text = &quot;文字展示&quot;</span><br><span class="line">showTxt.textColor = .orange</span><br><span class="line">showTxt.font = UIFont.systemFont(ofSize: 16)</span><br><span class="line">showTxt.textAlignment = .left</span><br><span class="line">showTxt.backgroundColor = .darkGray</span><br><span class="line">showTxt.numberOfLines = 1</span><br><span class="line">showTxt.lineBreakMode = .byTruncatingTail</span><br><span class="line">showTxt.sizeToFit()</span><br><span class="line"></span><br><span class="line">view.addSubview(showTxt)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>sizeToFit()可以让UILabell自适应文字，所以当需要文字自适应的时候很好用</p>
+</blockquote>
+<p>Ex.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let showTxt = UILabel(frame: CGRect(x: 10, y: 100, width: 200, height: 50))</span><br><span class="line">showTxt.text = &quot;文字展示&quot;</span><br><span class="line">view.addSubview(showTxt)</span><br><span class="line">        </span><br><span class="line">let nextLable = UILabel(frame: CGRect(x: 210, y: 100, width: 0, height: 0))</span><br><span class="line">nextLable.text = &quot;下一段话语&quot;</span><br><span class="line">nextLable.sizeToFit()</span><br><span class="line">view.addSubview(nextLable)</span><br><span class="line">        </span><br><span class="line">let finalLabel = UILabel(frame: CGRect(x: 210 + nextLable.bounds.width, y: 100, width: 0, height: 0))</span><br><span class="line">finalLabel.text = &quot;结束话题&quot;</span><br><span class="line">finalLabel.sizeToFit()</span><br><span class="line">view.addSubview(finalLabel)</span><br><span class="line">// 最后三段文字会紧密的挨在一起</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="UIImageView-的使用"><a href="#UIImageView-的使用" class="headerlink" title="UIImageView 的使用"></a>UIImageView 的使用</h3><p>UIImageView是一个专门用于显示图像或者动图的类</p>
+<p><code>class UIImageView : UIView</code></p>
+<p>iOS中，所有的图片都会被系统封装成 UIImage，然后去用于展示。</p>
+<p>常见的封装方式:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 从 main bundle 中获取资源去封装</span><br><span class="line">let image0 = UIImage(named: &quot;home&quot;)</span><br><span class="line"></span><br><span class="line">// 使用具体的data资源去封装</span><br><span class="line">let image1 = UIImage(data: Data())</span><br><span class="line"></span><br><span class="line">// 按照硬盘文件目录去获取资源去封装，而不是从main bundle中</span><br><span class="line">let image2 = UIImage(contentsOfFile: &quot;urlPath&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>创建UIImageView通常有静图和动图两种：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 封装两个图片</span><br><span class="line">let image0 = UIImage(named: &quot;home&quot;)</span><br><span class="line">let image1 = UIImage(named: &quot;personal&quot;)</span><br><span class="line">  </span><br><span class="line">// 创建一个UIImageView并显示一张图片      </span><br><span class="line">let imageView = UIImageView(image: image0)</span><br><span class="line">imageView.frame = CGRect(x: 0, y: 300, width: 100, height: 100)</span><br><span class="line">view.addSubview(imageView)</span><br><span class="line">  </span><br><span class="line">// 创建一个UIImageView并显示一组动图         </span><br><span class="line">let animationImageView = UIImageView()</span><br><span class="line">animationImageView.frame = CGRect(x: 100, y: 300, width: 100, height: 100)</span><br><span class="line">animationImageView.animationImages = [image0!, image1!]</span><br><span class="line">animationImageView.animationDuration = 0.5</span><br><span class="line">animationImageView.startAnimating()</span><br><span class="line">view.addSubview(animationImageView)</span><br></pre></td></tr></table></figure>
+
+<p>因为图片大小有时候和UIImageView 的大小会不一样，使用UIImageView也提供可选择的适应方式。</p>
+<ul>
+<li>scaleToFill 缩放图片，让ImageView完全显示图片</li>
+<li>scaleAspectFit 保持图片比例缩放，ImageView会完全显示图片，但是会出现留白</li>
+<li>scaleAspectFill 保持图片比例缩放，ImageView不完全显示图片，也不会出现留白</li>
+</ul>
+<h3 id="手势和点击"><a href="#手势和点击" class="headerlink" title="手势和点击"></a>手势和点击</h3><h4 id="UIButton"><a href="#UIButton" class="headerlink" title="UIButton"></a>UIButton</h4><p>UIButton是系统自带的按钮控件</p>
+<p><code>class UIButton : UIControl</code></p>
+<p>UIButton的使用非常简单:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 创建Button</span><br><span class="line">searchButton = UIButton(frame: CGRect(x: 0, y: view.bounds.height/2, width: 100, height: 50))</span><br><span class="line">// 设置Button在不同状态下的样式</span><br><span class="line">searchButton?.setTitle(&quot;点击&quot;, for: .normal)</span><br><span class="line">searchButton?.setTitle(&quot;按住&quot;, for: .highlighted)</span><br><span class="line"></span><br><span class="line">view.addSubview(searchButton!)</span><br><span class="line"></span><br><span class="line">// 设给button添加点击事件，onClickHandler: 是事件处理函数     </span><br><span class="line">searchButton?.addTarget(self, action: #selector(onClickHandler(sender:)), for: .touchUpInside)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>UIButton是继承自UIControl的，UIControl中iOS主要用于各种事件处理。UIButton继承了UIControl后也拥有了事件处理能力</p>
+</blockquote>
+<h4 id="Target-Action"><a href="#Target-Action" class="headerlink" title="Target-Action"></a>Target-Action</h4><p>Target-Action 是一种事件处理常用 设计模式。<br>比如事件处理中，触发了某个事件后，对应的Target就会去调用对应的Action来处理事件。</p>
+<p>比较典型的就是button的点击事件处理:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//其中 Self 就是 Target，对应的处理函数则是 Action，而touchUpInside则是触发的条件</span><br><span class="line">button?.addTarget(self, action: #selector(onClickHandler(sender:)), for: .touchUpInside)</span><br></pre></td></tr></table></figure>
+
+<h4 id="UIGestureRecognizer"><a href="#UIGestureRecognizer" class="headerlink" title="UIGestureRecognizer"></a>UIGestureRecognizer</h4><p>UIGestureRecognizer 是处理手势的基类</p>
+<p><code>class UIGestureRecognizer : NSObject</code></p>
+<p>在任何UIView上面，都是可以添加一个或者多个手势的，然后通过Target-Action来处理事件。</p>
+<blockquote>
+<p>添加手势时需要小心，手势会影响一些系统自带控件的事件响应</p>
+</blockquote>
+<p>常见的手势封装有：</p>
+<ul>
+<li><code>UITapGestureRecognizer</code> “点击”手势，可以设置点击的次数</li>
+<li><code>UIPinchGestureRecognizer</code> “捏合”手势，比如可以用来改变图片大小</li>
+<li><code>UIRotationGestureRecognizer</code> “旋转”手势，两指转动</li>
+<li><code>UISwipeGestureRecognizer</code> “轻扫”手势，手指从屏幕上轻划过</li>
+<li><code>UIPanGestureRecognizer</code> “滑动”手势，可以识别拖拽或移动动作</li>
+<li><code>UIScreenEdgePanGestureRecognizer</code> 边缘滑动</li>
+<li><code>UILongPressGestureRecognizer</code> “长按”手势</li>
+</ul>
+<p>手势的使用也很简单：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func creatGestureRecognizer() &#123;</span><br><span class="line">        // 创建一个需要使用的UIView</span><br><span class="line">        let tapView = UIView(frame: CGRect(x: 0, y: 500, width: 200, height: 100))</span><br><span class="line">        tapView.backgroundColor = .cyan</span><br><span class="line">        view.addSubview(tapView)</span><br><span class="line">        </span><br><span class="line">        // 创建一个手势，使用Target-Action添加好事件处理</span><br><span class="line">        let tapGR = UITapGestureRecognizer(target: self, action: #selector(onClickHandler(sender:)))</span><br><span class="line">        // 将事件添加到需要作用于的UIView，即可</span><br><span class="line">        tapView.addGestureRecognizer(tapGR)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>UIGestureRecognizer</code> 也有对应的delegate，可以对其做更加细致的处理</p>
+</blockquote>
+<h3 id="WKWebView"><a href="#WKWebView" class="headerlink" title="WKWebView"></a>WKWebView</h3><p>WKWebView是用来在app内显示和处理web内容的控件。</p>
+<p><code>class WKWebView : UIView</code></p>
+<blockquote>
+<p>使用WKWebView需要导入WebKit框架</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 创建webview的配置对象</span><br><span class="line">let webConfig = WKWebViewConfiguration()</span><br><span class="line">// 创建webview</span><br><span class="line">webView = WKWebView(frame: view.bounds, configuration: webConfig)</span><br><span class="line">//  添加到显示页面上</span><br><span class="line">view.addSubview(webView)</span><br></pre></td></tr></table></figure>
+
+<p>加载URL</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if let urlPath = URL(string: &quot;blog.csdn.net&quot;) &#123;</span><br><span class="line">    webView.load(URLRequest(url: urlPath))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需要注意的是，WKWebView默认是无法加载http，需要加载https。<br>一定需要加载http的话，可以通过修改或者添加Info.plist中的NSAppTransportSecurity来完成</p>
+</blockquote>
+<h4 id="WKUIDelegate和WKNavigationDelegate"><a href="#WKUIDelegate和WKNavigationDelegate" class="headerlink" title="WKUIDelegate和WKNavigationDelegate"></a>WKUIDelegate和WKNavigationDelegate</h4><p>要更加细节的出现WKWebView的内容，就需要WKUIDelegate和WKNavigationDelegate两个delegate了。</p>
+<p><strong>WKNavigationDelegate</strong> 处理跳转和请求相关内容</p>
+<ul>
+<li><p><code>func webView(_ webView: WKWebView, decidePolicyFor navigationAction:</code> </p>
+<blockquote>
+<p>是否加载请求，用于处理 scheme拦截，js和native通信 以及 特殊处理</p>
+</blockquote>
+</li>
+<li><p><code>func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!);</code></p>
+<blockquote>
+<p>webView完成加载</p>
+</blockquote>
+</li>
+<li><p><code>func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error);</code></p>
+<blockquote>
+<p>webView加载失败，可在此时显示重新加载按钮</p>
+</blockquote>
+</li>
+<li><p><code>func webViewWebContentProcessDidTerminate(_ webView: WKWebView);</code></p>
+<blockquote>
+<p>webView crash 回调</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>WKUIDelegate</strong> 处理UI相关内容</p>
+<ul>
+<li><p><code>func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -&gt; Void)</code> </p>
+<blockquote>
+<p>Alert弹框</p>
+</blockquote>
+</li>
+<li><p><code>func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -&gt; Void)</code></p>
+<blockquote>
+<p>TextInput弹框</p>
+</blockquote>
+</li>
+<li><p><code>func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -&gt; Void)</code></p>
+<blockquote>
+<p>confirm弹框</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="通过KVO来处理进度条之类的问题"><a href="#通过KVO来处理进度条之类的问题" class="headerlink" title="通过KVO来处理进度条之类的问题"></a>通过KVO来处理进度条之类的问题</h4><p>KVO 是iOS自带的处理 监听模式 的API。通过为某个对象添加监听者，来监听对象的属性变化。</p>
+<blockquote>
+<p>KVO 的使用容易造成各种循环使用，而且使用繁杂，所以网上有很多安全并且方便的KVO框架来使用</p>
+</blockquote>
+<p>以WebView中的进度条为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webview.addObserver(self, forKeyPath: &quot;estimatedProgress&quot;, options: NSKeyValueObservingOptions.new, context: nil)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>为对象 webview 添加一个监听者 self，监听的内容是 estimatedProgress 属性,监听的要求是 NSKeyValueObservingOptions.new (当出现新内容时)。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) &#123;</span><br><span class="line">        </span><br><span class="line">     if keyPath == &quot;estimatedProgress&quot; &#123;</span><br><span class="line">            print(&quot;已经加载 \(webView.estimatedProgress * 100)%&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过 observeValue 方法，获取监听的内容。</p>
+</blockquote>
+<p>在 Swift 4 之后，iOS有添加了新的添加监听的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 创建 NSKeyValueObservation 变量，这个变量必须有</span><br><span class="line">var observation: NSKeyValueObservation?</span><br><span class="line"></span><br><span class="line">fun observationFunc() &#123;</span><br><span class="line">	// 按照方法提示添加监听</span><br><span class="line">        observation = webView.observe(\WKWebView.estimatedProgress, options: .new) &#123; [weak self] (wkwebview, change) in</span><br><span class="line">            	// 必须使用weak self，不然很容易出现循环引用</span><br><span class="line">            guard let self = self else &#123;</span><br><span class="line">                return</span><br><span class="line">            &#125;</span><br><span class="line">            print(&quot;已经加载 \(change.newValue! * 100)%&quot;)</span><br><span class="line">            self.progressview.progress = Float(wkwebview.estimatedProgress)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>PS： 在以前的旧版本中，还需要在dealloc中添加 removeObserver 来手动取消监听，但是在xcode7以上，就不需要移除监听者为self的监听了，系统会自动处理。</p>
+<h4 id="WebView和Native显示复杂页面"><a href="#WebView和Native显示复杂页面" class="headerlink" title="WebView和Native显示复杂页面"></a>WebView和Native显示复杂页面</h4><p>开发中，我们经常将 WebView 和 Native 混合使用：</p>
+<ol>
+<li>一些多端统一的 富文本 内容，由webview来显示。比如：图文详情</li>
+<li>而复杂的控件则让Native来显示。比如：比如视频播放</li>
+</ol>
+<blockquote>
+<p>很多第三方开源项目可以方便我们作相关的混合处理，比如 HybridPageKit 等</p>
+</blockquote>
+<h3 id="iOS动画"><a href="#iOS动画" class="headerlink" title="iOS动画"></a>iOS动画</h3><p>iOS中的动画核心是 <strong>Core Aniamtion</strong>。在此基础上，苹果封装了一批简单的、方便使用的动画API。</p>
+<ol>
+<li>UIView动画</li>
+<li>UIkit组件自带的动画</li>
+</ol>
+<h4 id="UIView动画"><a href="#UIView动画" class="headerlink" title="UIView动画"></a>UIView动画</h4><p>UIView动画是iOS动画开发中最常见的，基本上可以包含我们开发中大部分的动画需求。处理基本的Frame，Alpha，Transform等需求，缺点则是不能自定义动画的中间过程。</p>
+<p>UIView动画的设置非常简单:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">UIView.animate(withDuration: 1, delay: 0, options: .autoreverse, animations: &#123;</span><br><span class="line">       let newXpoing = animationImageView.frame.origin.x + 200</span><br><span class="line">       let newFrame = CGRect(x: newXpoing, y: animationImageView.frame.origin.y, width: animationImageView.bounds.width, height: animationImageView.bounds.height)</span><br><span class="line">       animationImageView.frame = newFrame</span><br><span class="line">    &#125;) &#123; (finish) in</span><br><span class="line">            print(&quot;是否动画完成:\(finish)&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过UIView自带的animation方法，duration代表一共需要的时间，delay代表延多少时间开始，options表示动画的类型，后面两个block中，前者animations表示动画结束的状态，后者表示动画结束后的逻辑。</p>
+<p>实际上这是最简单的UIView动画，UIView还提供了非常多的动画API方便使用。</p>
+</blockquote>
+<h4 id="CoreAniamtion"><a href="#CoreAniamtion" class="headerlink" title="CoreAniamtion"></a>CoreAniamtion</h4><p>CoreAniamtion常用语处理要求更高，更加细致的动画。比较常用的几个类是：</p>
+<ol>
+<li>CABasicAnimation 基础动画</li>
+<li>CAKeyframeAnimation 设置关键路径和时间的动画</li>
+<li>CAAnimationGroup 简单动画组成复杂动画</li>
+<li>CATransition 转场动画</li>
+</ol>
+<p>以 CAKeyframeAnimation 为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个 CAKeyframeAnimation 对象，并设置keyPath</span><br><span class="line">let keyframeAnimation = CAKeyframeAnimation(keyPath: &quot;transform.scale&quot;)</span><br><span class="line">// 设置动画的关键时间点</span><br><span class="line">keyframeAnimation.keyTimes = [0, 0.2, 1]</span><br><span class="line">// 设置动画的每个关键时间点的关键值大小</span><br><span class="line">keyframeAnimation.values = [1, 2, 1]</span><br><span class="line">// 设置动画的运行时间</span><br><span class="line">keyframeAnimation.duration = 5</span><br><span class="line">// 在需要动画的对象上添加动画</span><br><span class="line">animationImageView.layer.add(keyframeAnimation, forKey: &quot;scaleAnimation&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>而CAAnimationGroup则是将复杂动画拆解为多个简单动画：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 设置一段简单动画</span><br><span class="line">let keyframeAnimation = CAKeyframeAnimation(keyPath: &quot;transform.scale&quot;)</span><br><span class="line">keyframeAnimation.keyTimes = [0, 0.2, 1]</span><br><span class="line">keyframeAnimation.values = [1, 2, 1]</span><br><span class="line">keyframeAnimation.duration = 5</span><br><span class="line">  </span><br><span class="line">// 设置另一个简单动画      </span><br><span class="line">let keyframeAnimationMove = CAKeyframeAnimation(keyPath: &quot;transform.scale&quot;)</span><br><span class="line">keyframeAnimationMove.keyTimes = [0, 0.2, 1]</span><br><span class="line">keyframeAnimationMove.values = [1, 2, 1]</span><br><span class="line">keyframeAnimationMove.beginTime = 5</span><br><span class="line">keyframeAnimationMove.duration = 5</span><br><span class="line"></span><br><span class="line">// 创建 CAAnimationGroup 对象         </span><br><span class="line">let animationGroup = CAAnimationGroup()</span><br><span class="line">// 设置这组动画的运行时间  </span><br><span class="line">animationGroup.duration = 10</span><br><span class="line">// 将各个简单动画组合在一起 </span><br><span class="line">animationGroup.animations = [keyframeAnimation, keyframeAnimationMove]</span><br><span class="line">// 在需要动画的对象上添加动画        </span><br><span class="line">animationImageView.layer.add(animationGroup, forKey: &quot;animationGoup&quot;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这些CAKeyframeAnimation对象中的keyPath，是指的CALayer中的属性</p>
+</blockquote>
+<p>在复杂动画中，还有一种关于粒子效果的动画，在iOS也有着 <code>CAEmitterLayer</code> 类的API去实现，具体情况具体分析。</p>
+<h3 id="UITextView-amp-UITextFeild"><a href="#UITextView-amp-UITextFeild" class="headerlink" title="UITextView &amp; UITextFeild"></a>UITextView &amp; UITextFeild</h3><ul>
+<li>UITextFeild 可编辑的文字输入控件，常见于输入框</li>
+<li>UITextView 可滚动展示的文字输入控件，常见于复杂的富文本显示和编辑</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 创建 UITextField 对象</span><br><span class="line">let inputFeild = UITextField(frame: CGRect(x: 10, y: 150, width: 200, height: 50))</span><br><span class="line">inputFeild.backgroundColor = .orange</span><br><span class="line">// 设置 UITextField 的默认提示语</span><br><span class="line">inputFeild.placeholder = &quot;请输入内容&quot;</span><br><span class="line">view.addSubview(inputFeild)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 创建 UITextView 对象</span><br><span class="line">let textView = UITextView(frame: CGRect(x: 10, y: 200, width: 200, height: 100))</span><br><span class="line">// 给 UITextView 对象 复制 显示内容</span><br><span class="line">textView.text = &quot;红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚，红红火火恍恍惚惚&quot;</span><br><span class="line">textView.backgroundColor = .yellow</span><br><span class="line">view.addSubview(textView)</span><br></pre></td></tr></table></figure>
+
+<p>UITextView &amp; UITextFeild 都拥有 becomeFirstResponder() 方法，可以直接将焦点转移到对应的 UITextView &amp; UITextFeild 中，并调起 键盘。<br><code>inputFeild.becomeFirstResponder()</code></p>
+<blockquote>
+<p>UITextView &amp; UITextFeild 也有各自对应的Delegate，和 UIScrollView 一样，更加细节的操作可以根据Delegate提供的方法来实现。</p>
+</blockquote>
+<h2 id="网络开发"><a href="#网络开发" class="headerlink" title="网络开发"></a>网络开发</h2><h3 id="系统网络框架"><a href="#系统网络框架" class="headerlink" title="系统网络框架"></a>系统网络框架</h3><p>APP中的一个基本的网络请求流程是：</p>
+<ol>
+<li><strong>url字符串</strong>通过<strong>URL(string:)<strong>方法根据相关的协议封装为</strong>URL对象</strong></li>
+<li>然后通过<strong>URLRequest(url:)<strong>，添加URL和一些请求参数和设置，封装为一个</strong>URLRequest</strong>对象，形成一个请求</li>
+<li>然后通过系统提供的<strong>URLsession</strong>去将<strong>URLRequest</strong>对象发送给服务器。(URLsession接受，发送和处理请求，封装Request为Task，然后做处理)</li>
+<li>接受服务器返回的数据</li>
+</ol>
+<blockquote>
+<p>URL格式:</p>
+<p>作用:资源定位</p>
+<p><a target="_blank" rel="noopener" href="https://192.163.0.1:8080/files/net.md?name=&quot;boy&quot;#nose">https://192.163.0.1:8080/files/net.md?name=&quot;boy&quot;#nose</a></p>
+</blockquote>
+<p><code>URLsession</code>是iOS网络开发中非常重要的一个区域。主要用于负责<strong>接受，发送和处理请求</strong>，<br>一个<code>URLsession</code>可以创建多个请求，同时一个app也可以创建多个<code>URLsession</code>，<br><code>URLsession</code>封装<code>Request</code>为Task，来控制其状态。</p>
+<blockquote>
+<p>一个简单的用于理解的例子就是浏览器，一个浏览器可以打开多个窗口请求不同的网站(URLsession可以创建多个请求)，而且同时一个浏览器还可以同时拥有正常模式和无痕模式(一个app也可以创建多个URLsession)。</p>
+</blockquote>
+<p><code>URLsession</code>封装<code>Request</code>为Task，而常见的Task有四种:</p>
+<ol>
+<li>dataTask 处理JSON之类的数据流，也是开发中最常见的类型</li>
+<li>downloadTask 处理大数据的下载，查看进度和断点下载等</li>
+<li>uploadTask 上传数据</li>
+<li>streamTask 流数据</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">func requestHandler() &#123;</span><br><span class="line">        // 封住URL</span><br><span class="line">        let url = URL(string: &quot;http://t.weather.sojson.com/api/weather/city/101030100&quot;)</span><br><span class="line">        // 如果需要设置request，则需要继续封装request。</span><br><span class="line">        var request = URLRequest(url: url!, cachePolicy: .returnCacheDataElseLoad)</span><br><span class="line">        request.httpMethod = &quot;Get&quot;</span><br><span class="line">        // 系统提供了一个URLSession，除非特殊需要，不用重新创建一个</span><br><span class="line">        let session = URLSession.shared</span><br><span class="line">        // data就是服务器返回的数据</span><br><span class="line">        let task = session.dataTask(with: request) &#123; (data, response, error) in</span><br><span class="line">            let dicStr = String(data: data ?? Data(), encoding: .utf8)</span><br><span class="line">            print(&quot;data: \(dicStr ?? &quot;&quot;)&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        // 请求发起</span><br><span class="line">        task.resume()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>URLRequest 默认为 Get，当为 Get 时，可以设置缓存策略</p>
+<ol>
+<li><p>useProtocolCachePolicy ： NSURLRequestCachePolicy枚举定义了一些常量，这些常量被用来指定当系统处理网络请求时与缓存系统的交互类型。这些常量覆盖了很多需要做的交互，在确定是否已经存在缓存数据用于满足加载请求后做。</p>
+</li>
+<li><p>reloadIgnoringLocalCacheData ： URL加载的数据应该从来源加载。不应该使用任何现有的本地缓存数据(不论其是否是新的或是有效的)来满足URL加载请求。</p>
+</li>
+<li><p>reloadIgnoringLocalAndRemoteCacheData ： 不使用本地缓存，且在协议允许的范围内也不使用任何代理以及中介的缓存。</p>
+</li>
+<li><p>returnCacheDataElseLoad ： 已有的缓存不管是否到期都应该被用来满足加载请求。如果依然没有缓存的数据，请求会从原地址加载。</p>
+</li>
+<li><p>returnCacheDataDontLoad ： 已有的缓存不管是否到期都应该被用来满足加载请求。如果依然没有缓存的数据，也不会从原地址尝试加载。这种情况一般用于“离线模式”。</p>
+</li>
+<li><p>reloadRevalidatingCacheData ： 已有的缓存现需要从来源证实有效性，不然需要从原地址重新加载。</p>
+</li>
+</ol>
+<p>所有按照实际情况选择缓存策略。</p>
+</blockquote>
+<h3 id="项目中设计网络层"><a href="#项目中设计网络层" class="headerlink" title="项目中设计网络层"></a>项目中设计网络层</h3><p>很多iOS开发问题，都可以用<strong>中间层</strong>来解决。iOS中的网络请求设计也是如此。</p>
+<p>在业务方面的网络层，通常有三个要点：</p>
+<ol>
+<li>请求接口</li>
+<li>数据回调</li>
+<li>数据转换</li>
+<li>数据缓存</li>
+</ol>
+<p><strong>请求接口</strong><br>即网络层调用接口输入参数，通常有两张设计方式。</p>
+<ul>
+<li><p>集中式  </p>
+<blockquote>
+<p>所有参数通过一个接口输入。</p>
+<p>好处则是参数明确，使用简单。<br>缺点也是请求太多后会变得臃肿复杂。</p>
+</blockquote>
+</li>
+<li><p>分布式</p>
+<blockquote>
+<p>设计一个请求基类，然后根据不同的业务设计一个继承自基类的业务请求类，在各自的业务中直接实例化这个业务请求类获取网络数据。</p>
+<p>好处非常明显， 让请求网络的业务中，代码量减少，设计更加的优雅轻盈，可扩展性也强。<br>缺点则是当业务非常的多的时候，必然会导致类爆炸，同时维护上百个业务请求类。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>数据回调</strong><br>网络层的传输大多以异步加载为主，即服务器响应后由网络层来负责将数据推给上层业务线程。因此，在回调方案中，<strong>block</strong> <strong>delegate</strong> <strong>notification</strong> 均是不错的选择方案，可以根据不同的实际情况做选择。通常情况下 block 使用频率稍高。</p>
+<p><strong>数据转换</strong><br>这个其实是一个返回数据处理问题。通常我们并不是将服务端返回的数据直接拿出来用的，而是转换成 Dictionary 或者 Model。而这个返回 可用数据 的过程也是网络层需要处理的地方之一。</p>
+<p><strong>数据缓存</strong><br>数据缓存在网络请求中也需要考虑，当请求的数据不是容易变化的数据时，就需要考虑数据缓存问题，将请求成功后服务器给的数据缓存下来，在下次请求时直接使用缓存的数据，这样可以减少流量消耗和请求时间。</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><h3 id="JSON解析"><a href="#JSON解析" class="headerlink" title="JSON解析"></a>JSON解析</h3><p>JSON是一种轻量级的、高可读性的、纯文本形式的数据交换语言，传输由属性值或者序列性的值组成的数据对象。也是app网络开发中最常见的数据交换语言。</p>
+<p>iOS中也自带了解析JSON的方法。</p>
+<p>在OC或者Swift4之前，常用JSONSerialization来实现，将JSON转成NSDictionary</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// data是json对象</span><br><span class="line">let jsonDic = (try! JSONSerialization.jsonObject(with: data!, options: .mutableContainers)) as! NSDictionary</span><br><span class="line">print(&quot;data: \(jsonDic)&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>Swift4之后则拥有Codable来直接编码或者解码JSON。</p>
+<p><code>public typealias Codable = Decodable &amp; Encodable</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 设置CityInfo遵循Decodable解码协议</span><br><span class="line">struct CityInfo: Decodable &#123;</span><br><span class="line">// 变量和JSON里面的key也必须是一致的</span><br><span class="line">    var city: String</span><br><span class="line">    var citykey: Int</span><br><span class="line">    var parent: String</span><br><span class="line">    var updateTime: String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 解码JSON对象data, 将其转化成CityInfo对象</span><br><span class="line">guard let jsonModel = try? JSONDecoder().decode(CityInfo.self, from: data!) else &#123;</span><br><span class="line">      fatalError(&quot;`JSON Decode Failed`&quot;)</span><br><span class="line">&#125;</span><br><span class="line">            </span><br><span class="line">print(&quot;data: \(jsonModel)&quot;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>实际上，iOS中的数据使用通常都是 <strong>JSON</strong> 转成 <strong>字典或者数组</strong> 然后转成 <strong>Model</strong> 的过程，最后使用 <strong>Model</strong> 的过程。</p>
+</blockquote>
+<h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><p>iOS APP中，每个APP都有有着自己的沙盒。APP之间除非使用苹果提供的特殊方法外，是无法互相访问的。</p>
+<p>每个APP的沙盒内，一般包含两个部分：</p>
+<ol>
+<li>APP自身的内容 <strong>〖 Bundles 〗文件</strong><ul>
+<li>应用配置文件</li>
+<li>二进制资源和文件</li>
+</ul>
+</li>
+<li>APP的文件系统(文件内的内容按文件名分类) <strong>〖 Datas 〗文件</strong><ul>
+<li>Document 可存放体积较大的用户数据</li>
+<li>Library 开发者常用，自带缓存文件夹(Cache) 和 用户偏好设置等(Preferences)，还可自定义子文件夹</li>
+<li>SystemData 系统文件</li>
+<li>temp 临时文件</li>
+</ul>
+</li>
+</ol>
+<p>获取沙盒的方法:</p>
+<p><code>NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)</code></p>
+<blockquote>
+<p>NSSearchPathForDirectoriesInDomains是方法宏，documentDirectory是Document文件夹，userDomainMask指用户文件。</p>
+</blockquote>
+<h3 id="FileManager"><a href="#FileManager" class="headerlink" title="FileManager"></a>FileManager</h3><p>FileManager是iOS提供的操作文件的管理类。</p>
+<p>Ex.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">func conigFile() &#123;</span><br><span class="line">        // 获取系统自带的 FileManager</span><br><span class="line">        let fileManage = FileManager.default</span><br><span class="line">        </span><br><span class="line">        // 获取 缓存文件 路径</span><br><span class="line">        let cachePath = URL(string: NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!)</span><br><span class="line">        // 设置 新文件夹 路径</span><br><span class="line">        let dataPath = cachePath?.appendingPathComponent(&quot;WeathAppData&quot;)</span><br><span class="line"></span><br><span class="line">        // 创建文件夹</span><br><span class="line">        do &#123;</span><br><span class="line">            try fileManage.createDirectory(atPath: dataPath!.path, withIntermediateDirectories: true, attributes: nil)</span><br><span class="line">        &#125;</span><br><span class="line">        catch &#123;</span><br><span class="line">            fatalError(&quot;创建失败&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // 设置 文件 路径</span><br><span class="line">        let itemPath = dataPath!.appendingPathComponent(&quot;item&quot;)</span><br><span class="line"></span><br><span class="line">	   // 创建文件内容</span><br><span class="line">        let itemData = Data()</span><br><span class="line">        </span><br><span class="line">        // 创建文件</span><br><span class="line">        do &#123;</span><br><span class="line">            try fileManage.createFile(atPath: itemPath.path, contents: itemData, attributes: nil)</span><br><span class="line">        &#125;</span><br><span class="line">        catch &#123;</span><br><span class="line">            fatalError(&quot;创建失败&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其他的文件移动，删除，拷贝等操作也通过 FileManager 提供的API 来完成。</p>
+</blockquote>
+<h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><p>iOS中系统提供了三种储存方式：</p>
+<ol>
+<li>UserDefaults</li>
+<li>NSKeyedArchiver 序列化归档</li>
+<li>CoreData 数据库</li>
+<li>Keychain 密码管理和存储</li>
+</ol>
+<h3 id="UserDefaults"><a href="#UserDefaults" class="headerlink" title="UserDefaults"></a>UserDefaults</h3><p>UserDefaults 内容存储在系统的 Library 文件夹下的 Preferences 文件夹中。存储对象以轻量级为主，用户设置之类的内容偏多。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 系统自带的UserDefaults单例，按照 key-value的方式存放数据</span><br><span class="line">UserDefaults.standard.set(&quot;123&quot;, forKey: &quot;test&quot;)</span><br><span class="line"></span><br><span class="line">// 系统自带的UserDefaults单例，调用获取value的方法     </span><br><span class="line">let test = UserDefaults.standard.value(forKey: &quot;test&quot;)</span><br><span class="line">print(&quot;UserDefaults: \(test ?? &quot;nil&quot;)&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="第三方存储"><a href="#第三方存储" class="headerlink" title="第三方存储"></a>第三方存储</h3><p>第三方存储中常见的是两个类型</p>
+<ol>
+<li>key-value 类型 ： 比如 Realm 等</li>
+<li>关系数据库 类型：比如 SQLite，FMDB 等</li>
+</ol>
+<blockquote>
+<p>SQLite是比较基础的跨平台数据库，无论是苹果的CoreData还是第三方的FMDB都对其的封装。</p>
+</blockquote>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><ul>
+<li>创建进程：创建所有必要的管理信息，创建完成后才会加入下一步</li>
+<li>就绪：获得了一切需要资源和管理信息</li>
+<li>运行：运行状态进程数小于等于系统处理器的总数</li>
+<li>阻塞：等待，睡眠</li>
+<li>终止：进程结束运行</li>
+</ul>
+<h3 id="线程-1"><a href="#线程-1" class="headerlink" title="线程"></a>线程</h3><blockquote>
+<p>线程是进程的基本执行单元，进程的任务都是在线程中执行的。其中主线程负责主要的进程任务，在iOS开发中，主线程通常为UI线程。</p>
+</blockquote>
+<p><strong>多线程</strong></p>
+<blockquote>
+<p>多线程常用地方：</p>
+<ul>
+<li>网络请求</li>
+<li>图片加载</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>任务执行方式：</p>
+<ul>
+<li>串行</li>
+<li>并行</li>
+</ul>
+</blockquote>
+<p><strong>多线程执行原理</strong></p>
+<ul>
+<li>单核操作系统主要是通过时间片来实现的，两个线程在不同的时间片上交替执行，完成多线程。</li>
+<li>多核操作系统是把线程分配给不同的处理器来执行，完成真正的并行。</li>
+</ul>
+<p><strong>优缺点</strong></p>
+<ul>
+<li><p>优点：</p>
+<ol>
+<li>简化了编程模型：高效的处理大型任务或者零散任务</li>
+<li>更加轻量级</li>
+<li>提高了效率和资源利用率</li>
+</ol>
+</li>
+<li><p>缺点：</p>
+<ol>
+<li>加强了程序设计的复杂性</li>
+<li>占用内存空间（不要乱用多线程）</li>
+<li>增加了CPU的调度开销，增加了CPU占有率</li>
+</ol>
+</li>
+</ul>
+<p><strong>iOS中多线程的实现技术方案</strong></p>
+<ul>
+<li>pThread</li>
+<li>NSThread 针对线程</li>
+<li>GCD 针对线程队列</li>
+<li>NSOperation 对于GCD的面向对象封装</li>
+</ul>
+<h3 id="GCD-的使用"><a href="#GCD-的使用" class="headerlink" title="GCD 的使用"></a>GCD 的使用</h3><p>iOS开发中比较常用的多线程技术，苹果官方说法为：异步执行任务的技术之一。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 获取全局并发队列，执行异步</span><br><span class="line">DispatchQueue.global().async &#123;</span><br><span class="line">            </span><br><span class="line">            var image:UIImage?</span><br><span class="line">            do &#123;</span><br><span class="line">            	// 网络请求下载图片</span><br><span class="line">                let data = try Data(contentsOf: URL(string: &quot;https://i0.hdslb.com/bfs/article/32d57fcafe36df2896d47be0031b33ab8f46eaad.jpg&quot;)!)</span><br><span class="line">                image = UIImage(data: data)</span><br><span class="line">            &#125;</span><br><span class="line">            catch &#123;</span><br><span class="line">                fatalError()</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            if (image != nil) &#123;</span><br><span class="line">            	// 获取主线程队列，进行UI操作</span><br><span class="line">                DispatchQueue.main.async &#123;</span><br><span class="line">                    self.topImageView.image = image</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>自定义队列：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// label: 自定义队列名;  attributes: 使用 并发或者串行</span><br><span class="line">let concurrentQueue = DispatchQueue(label: &quot;com.concurrentQueue&quot;, attributes: .concurrent)</span><br></pre></td></tr></table></figure>
+
+<h2 id="网络图片加载"><a href="#网络图片加载" class="headerlink" title="网络图片加载"></a>网络图片加载</h2><h3 id="缓存异步网络请求的数据"><a href="#缓存异步网络请求的数据" class="headerlink" title="缓存异步网络请求的数据"></a>缓存异步网络请求的数据</h3><p>图片缓存在网络图片加载中相当重要，将请求成功后服务器给的图片数据缓存下来，在下次请求时直接使用缓存的数据，这样可以减少流量消耗和请求时间，常用用于图片下载。</p>
+<p>以常用的第三方图片异步网络图片加载框架 SDWebImage例：</p>
+<ol>
+<li>设置一套散列表，将请求的 URL 编码后做为 key 值。</li>
+<li>根据 key 值，查找散列表中是否有对应的值，如果用，就根据对应的值在缓存中获取图片数据。</li>
+<li>如果没有对应的值，则直接进行网络请求，并将获得的数据缓存，然后设置对应URL的value值。</li>
+</ol>
+<h3 id="SDWebImage-的使用"><a href="#SDWebImage-的使用" class="headerlink" title="SDWebImage 的使用"></a>SDWebImage 的使用</h3><p>SDWebImage 的设计结构：</p>
+<p><img src="https://raw.githubusercontent.com/SDWebImage/SDWebImage/master/Docs/Diagrams/SDWebImageHighLevelDiagram.jpeg"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// sd_setImage： 设置图片</span><br><span class="line">// URL： url地址</span><br><span class="line">// placeholderImage： 占位图</span><br><span class="line">imageView.sd_setImage(with: URL(string: &quot;http://www.domain.com/path/to/image.jpg&quot;), placeholderImage: UIImage(named: &quot;placeholder.png&quot;))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>cocospods使用pod init 出现bad interpreter: No such file or directory<br>通常为mac升级系统时，可能和导致cocospod不能使用，这时升级一下cocospod即可。</p>
+</blockquote>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;$ sudo gem update --system</span><br><span class="line">&gt;$ sudo gem install cocoapods -n/usr/local/bin</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="音视频"><a href="#音视频" class="headerlink" title="音视频"></a>音视频</h2><h3 id="系统框架-AVKit-和-AVFoundation"><a href="#系统框架-AVKit-和-AVFoundation" class="headerlink" title="系统框架 AVKit 和 AVFoundation"></a>系统框架 AVKit 和 AVFoundation</h3><p>AVKit (iOS8+ ) 是iOS 提供的用于音视频开发的框架。</p>
+<ol>
+<li>提供AVPlayerViewController</li>
+<li>提供层级较高的接口</li>
+<li>提供创建播放相关的UI内容</li>
+</ol>
+<p>常见的点击视频后，打开了一个背景黑色的默认播放界面，那个一般就是AVPlayerViewController。</p>
+<p><strong>AVFoundation</strong><br>AVKit 是基于 AVFoundation 封装的框架，如果AVKit无法满足需求，需要对音视频更为底层的控制和自定义，则可以直接使用 AVFoundation。</p>
+<p>AVFoundation 有几个关键属性需要认知：</p>
+<ol>
+<li>AVAsset 资源属性 （各种媒体数据）</li>
+<li>AVPlayer 播放控制属性 （Controller）</li>
+<li>AVPlayerLayer 播放画面属性 （View）</li>
+<li>AVplayerItem AVAsset封装，播放状态属性 （Model）</li>
+</ol>
+<p>使用流程： AVplayerItem封装AVAsset，AVPlayer根据AVplayerItem创建播放器，AVPlayer中获取AVPlayerLayer，将AVPlayerLayer添加到需要播放的View的Layer上面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 获取URL</span><br><span class="line">guard let mp4Url = URL(string: DefineConst.TestMap4Url) else &#123;</span><br><span class="line">          fatalError()</span><br><span class="line">&#125;</span><br><span class="line">// 封装URL成AVPlayerItem</span><br><span class="line">let playerItem = AVPlayerItem(url: mp4Url)</span><br><span class="line">// 创建AVPlayer</span><br><span class="line">// 如果不需要处理AVPlayerItem的属性，可以直接调用：</span><br><span class="line">// let playerController = AVPlayer(url: mp4Url)</span><br><span class="line">let playerController = AVPlayer(playerItem: playerItem)</span><br><span class="line">// 创建AVPlayerLayer</span><br><span class="line">let playerLayer = AVPlayerLayer(player: playerController)</span><br><span class="line">// 将AVPlayerLayer添加到需要播放的View的Layer上面</span><br><span class="line">playerLayer.frame = avplayerView.bounds</span><br><span class="line">avplayerView.layer.addSublayer(playerLayer)</span><br><span class="line">// 播放</span><br><span class="line">playerController.play()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通常app内，正在播放的视频只会是一个，所以推荐创建一个管理单例去设置视频播放。</p>
+</blockquote>
+<h3 id="KVO和Notification"><a href="#KVO和Notification" class="headerlink" title="KVO和Notification"></a>KVO和Notification</h3><p>从WebView开始我们就明白用KVO来处理进度条，实际上在视频播放中也是如此，用KVO和Notification来处理部分播放的属性。</p>
+<p>Notification的使用方式:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 创建通知中心 NotificationCenter.default</span><br><span class="line">// 设置监听方法 test</span><br><span class="line">// 设置通知的名字 isTest</span><br><span class="line">NotificationCenter.default.addObserver(self, selector: #selector(test), name: NSNotification.Name(rawValue:&quot;isTest&quot;), object: nil)</span><br><span class="line"></span><br><span class="line">// 实现通知监听方法</span><br><span class="line">@objc func test(nofi : Notification)&#123;</span><br><span class="line">        let str = nofi.userInfo![&quot;post&quot;]</span><br><span class="line">        print(String(describing: str!) + &quot;this notifi&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">// 点击发送通知进行</span><br><span class="line">override func touchesBegan(_ touches: Set&lt;UITouch&gt;, with event: UIEvent?) &#123;</span><br><span class="line">        NotificationCenter.default.post(name: NSNotification.Name(&quot;isTest&quot;), object: self, userInfo: [&quot;post&quot;:&quot;NewTest&quot;])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">// 移除通知</span><br><span class="line">deinit &#123;</span><br><span class="line">        /// 移除通知</span><br><span class="line">        NotificationCenter.default.removeObserver(self)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><h3 id="frame"><a href="#frame" class="headerlink" title="frame"></a>frame</h3><p>frame 是iOS中最基础的布局。通过计算绝对坐标布局视图位置。</p>
+<h3 id="AutoLayout"><a href="#AutoLayout" class="headerlink" title="AutoLayout"></a>AutoLayout</h3><p>AutoLayout 有别于 frame，不再是绝对坐标，还是变成了描述性质的语言，只需要写上约束条件，然后根据约束条件，系统生成frame去布局位置。</p>
+<ul>
+<li>好处： 布局变得简单，特别是可变内容或者屏幕适配之类的</li>
+<li>坏处：一定程度上性能不如frame，所以性能敏感的地方不要使用</li>
+</ul>
+<blockquote>
+<p>AutoLayout 布局一般使用NSLayoutConstraint，但是NSLayoutConstraint使用非常烦琐，为了解决AutoLayout的编码复杂问题，苹果推出了VFL语言来方便编码，但是实际上VFL仍然有很多的不足，所以我们通常还是使用第三方库来完成约束。</p>
+</blockquote>
+<p>但是在iOS9 之后可以使用一种新的布局API ： NSLayoutAnchor</p>
+<p><code>class NSLayoutAnchor&lt;AnchorType&gt; : NSObject where AnchorType : AnyObject</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">avplayerView.translatesAutoresizingMaskIntoConstraints = false</span><br><span class="line">// 给avplayerView添加宽度约束</span><br><span class="line">avplayerView.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true</span><br><span class="line">// 给avplayerView添加高度约束</span><br><span class="line">avplayerView.heightAnchor.constraint(equalToConstant: view.bounds.width * 9 / 16).isActive = true</span><br><span class="line">// 给avplayerView的顶部和topImageView的底部添加约束，约束值为0</span><br><span class="line">avplayerView.topAnchor.constraint(equalTo: topImageView.bottomAnchor).isActive = true</span><br><span class="line">// avplayerView的纵向和view的纵向一致</span><br><span class="line">avplayerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="iOS适配"><a href="#iOS适配" class="headerlink" title="iOS适配"></a>iOS适配</h3><p>分辨率：</p>
+<ul>
+<li>逻辑分辨率：直观反应大小和距离，描述显示的单位，例如UIScreen取的屏幕数据就是逻辑分辨率尺寸</li>
+<li>物理分辨率：手机屏幕像素大小，物理分辨率越高，色彩丰富度也越高</li>
+</ul>
+<blockquote>
+<p>逻辑分辨率 是 物理分辨率 按照一定的缩放采样形成的。</p>
+<p>通常适配采用的是 逻辑分辨率</p>
+</blockquote>
+<p>适配主要有三点：</p>
+<ol>
+<li>位置，大小，文字是否按比例适配</li>
+<li>图片资源适配 @1x @2x @3x 推荐使用 ImageAsset</li>
+<li>iPhonex适配 safeArea等</li>
+<li>autolayout</li>
+</ol>
+<h2 id="App间的唤起和通信"><a href="#App间的唤起和通信" class="headerlink" title="App间的唤起和通信"></a>App间的唤起和通信</h2><h3 id="URL-Scheme"><a href="#URL-Scheme" class="headerlink" title="URL-Scheme"></a>URL-Scheme</h3><p>Scheme一般用来表示协议，比如 http、https、ftp 等，URL Scheme的字面意思理解就是地址协议。</p>
+<p><code>alipay://open?page=payPage&amp;title=pay</code></p>
+<blockquote>
+<p>Scheme: alipay</p>
+<p>在移动端Safari浏览器输入以上示例网址就会提示你 在”支付宝”中打开链接吗？，然后由你选择”取消”或”打开”。和HTTP协议格式的URL访问流程进行对比，iOS URL Scheme实际上就是启动一个应用的 URL。</p>
+</blockquote>
+<p>设置方法：</p>
+<p><strong>选择项目的 TARGETS，打开 Info栏，找到 URL Type，然后根据提示填写URL-Scheme即可</strong></p>
+<blockquote>
+<p>一般情况下，是会调用先安装的app。但是iOS的系统app的URL Scheme肯定是最高的。所以我们定义URL Scheme的时候，尽量避开系统app已经定义过的URL Scheme。</p>
+</blockquote>
+<h3 id="Universal-Link"><a href="#Universal-Link" class="headerlink" title="Universal Link"></a>Universal Link</h3><p><code>Universal Link(通用链接)</code> 是Apple在 iOS9 推出的一种能够方便的通过传统HTTPS链接来启动APP的功能，可以使用相同的网址打开网址和APP。当你的应用支持Universal Link(通用链接)，当用户点击一个链接是可以跳转到你的网站并获得无缝重定向到对应的APP，且不需要通过Safari浏览器。</p>
+<p>相对于URL-Scheme，Universal Link更加的常见，通常会开发一个和 原生APP 内容一致的 H5页面，然后这个页面的 url 即是一个 Universal Link，当你打开这个页面的时候，会查看你的APP是否有安装对应的APP，如果有则直接跳转到 原生APP 的对应页面，如果没有则直接显示一样内容的 H5 页面。</p>
+<p>使用Universal Link需要到开发者中心配置：<br>找到对应的App ID，在Application Services列表里有Associated Domains一条，把它变为Enabled就可以了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2452209-5b5bcf848e418c93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/597"></p>
+<p>然后在工程配置中相应功能：targets-&gt;Signing&amp;Capabilites-&gt;Capability-&gt;Associated Domains，在其中的Domains中填入你想支持的域名，也必须必须以applinks:为前缀。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2452209-199bbc982cf50a3b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1150"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/General/Conceptual/AppSearch/UniversalLinks.html#//apple_ref/doc/uid/TP40016308-CH12-SW1">官方配置文档</a></p>
+</blockquote>
+<h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><p>iOS 中常见的库 ： </p>
+<ol>
+<li>库 Library</li>
+<li>静态库 .a文件</li>
+<li>动态库 .dylib文件 iOS开发中基本不用</li>
+</ol>
+<h2 id="OAuth和OpenID"><a href="#OAuth和OpenID" class="headerlink" title="OAuth和OpenID"></a>OAuth和OpenID</h2><ul>
+<li><p>OAuth 授权</p>
+<blockquote>
+<p>提供第三方登录授权，避免在APP输入第三方的账户密码，增强了安全性。<br>比如在APP中使用微信登录的流程。</p>
+</blockquote>
+</li>
+<li><p>OpenID</p>
+<blockquote>
+<p>隐藏明文，每个APP独立OpenID<br>在第三方登录中，使用OpenID来标记用户，增强用户的信息的安全性<br>比如用第三方微信登录时，微信会把代表用户的微信号加密成OpenID，来标记用户</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><h3 id="日志作用"><a href="#日志作用" class="headerlink" title="日志作用"></a>日志作用</h3><p>日志系统的作用：</p>
+<ol>
+<li>定位问题</li>
+<li>记录用户的行为操作</li>
+<li>记错错误的执行</li>
+<li>Crash收集</li>
+<li>Debug过程数据</li>
+</ol>
+<p>通常日志系统会配合上报，上报后，后台会分析和整理这些日志数据，方便开发者等相关人员查看。</p>
+<blockquote>
+<p>日志系统存储相关日志在本地时，注意在 非主线程&amp;线程安全 </p>
+</blockquote>
+<blockquote>
+<p>通常使用 开源项目 来创建日志系统 ，比如 <strong>CocoaLumberjack</strong> 等</p>
+</blockquote>
+<h3 id="上报"><a href="#上报" class="headerlink" title="上报"></a>上报</h3><p>上报技术常见两种：</p>
+<ul>
+<li><p>埋点</p>
+<blockquote>
+<p>在具体的业务代码中添加相应的代码<br>特别：代码侵入，无法更改<br>比如 友盟 的</p>
+</blockquote>
+</li>
+<li><p>无埋点</p>
+<blockquote>
+<p>基于Runtime等技术Hoot通用方法，不需要在业务代码中添加内容<br> 特别：动态下发、增加、删除 上报<br>比如 Aspect 的</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>上报 最好还是使用 公司内部平台 或者 第三方数据平台 比较好。</p>
+</blockquote>
+<h3 id="Crash上报和处理"><a href="#Crash上报和处理" class="headerlink" title="Crash上报和处理"></a>Crash上报和处理</h3><p>推荐使用 开源项目 ：  Bugly &#x2F; 友盟 等</p>
+<h2 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h2><p>使用系统框架：<br><code>CoreLocation.framework</code></p>
+<p>可以获取设备的 地理位置，方向 和 海拔 等。</p>
+<p>定位授权包含两种：</p>
+<ul>
+<li>when-in-use authorization: 可以在应用运行期间使用定位服务，可以开启后台运行时扔使用定位，但是不能在获取定位时自动启动应用</li>
+<li>always authorization: 可以使用所有的定位服务，如果与定位相关的事件发生时应用没有在运行，会自动启动你的应用并发送定位事件</li>
+</ul>
+<blockquote>
+<p>注意：官方文档中建议只获取when-in-use定位授权</p>
+</blockquote>
+<h3 id="When-in-use"><a href="#When-in-use" class="headerlink" title="When-in-use"></a>When-in-use</h3><ol>
+<li>向<strong>Info.plist</strong>中添加<strong>Privacy - Location When In Use Usage Description</strong>（或者添加<strong>NSLocationWhenInUseUsageDescription键</strong>）</li>
+<li>创建并配置<strong>CLLocationManager</strong>对象</li>
+<li>调用<strong>CLLocationManager</strong>对象的**requestWhenInUseAuthorization()**方法即可</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 创建 CLLocationManager 对象</span><br><span class="line">let locationManager = CLLocationManager()</span><br><span class="line">func enableBasicLocationServices() &#123;</span><br><span class="line">   locationManager.delegate = self</span><br><span class="line">        </span><br><span class="line">   switch CLLocationManager.authorizationStatus() &#123;</span><br><span class="line">      case .notDetermined:</span><br><span class="line">         // Request when-in-use authorization initially</span><br><span class="line">         locationManager.requestWhenInUseAuthorization()</span><br><span class="line">         break</span><br><span class="line">            </span><br><span class="line">      case .restricted, .denied:</span><br><span class="line">         // Disable location features</span><br><span class="line">         disableMyLocationBasedFeatures()</span><br><span class="line">         break</span><br><span class="line">            </span><br><span class="line">      case .authorizedWhenInUse, .authorizedAlways:</span><br><span class="line">         // Enable location features</span><br><span class="line">         enableMyWhenInUseFeatures()</span><br><span class="line">         break</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Application-Extension"><a href="#Application-Extension" class="headerlink" title="Application Extension"></a>Application Extension</h2><p>是 系统和其他APP 交互的扩展，Extension是为APP而存在的，一个APP可以有多个Extension，安装好APP后会自动安装好其自带的Extension。</p>
+<p>Extension常见的有三类：</p>
+<ul>
+<li>Share 分享扩展</li>
+<li>Today 今日扩展</li>
+<li>Keyboard 键盘扩展</li>
+</ul>
+<p>比如：<br><img src="https://img-blog.csdn.net/20180108194234045"><br>（今日扩展: 将应用的最新消息展示给用户）</p>
+<p>使用：</p>
+<p>首先<strong>File -&gt; New</strong>,找到 <strong>Target</strong> 选项，然后在 Extension 区域，选择自己想要创建的Extension 类型(比如 Today Extension)，然后一个基础的Extension就创建成功了。</p>
+<p>Extension创建成功后，会在项目中创建一个和Extension同名的文件夹，里面是UIViewController等文件，可以通过这些修改和添加Extension的内容。</p>
+</div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/iOS/">iOS</a></div><div class="notification is-danger">You need to set <code>install_url</code> to use ShareThis. Please set it in <code>_config.yml</code>.</div></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" href="/" target="_blank" rel="noopener" data-type="afdian"><span class="icon is-small"><i class="fas fa-charging-station"></i></span><span>Afdian.net</span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="/" alt="Alipay"></span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="buymeacoffee"><span class="icon is-small"><i class="fas fa-coffee"></i></span><span>Buy me a coffee</span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="patreon"><span class="icon is-small"><i class="fab fa-patreon"></i></span><span>Patreon</span></a><div class="notification is-danger">You forgot to set the <code>business</code> or <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.</div><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="/" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/01/20/SourceTree_Using/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">SourceTree 使用记录</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2019/12/24/ComputerScienceBase/"><span class="level-item">计算机原理简介</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">Comments</h3><div class="notification is-danger">You forgot to set the <code>shortname</code> for Disqus. Please set it in <code>_config.yml</code>.</div></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="SeaBrea"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">SeaBrea</p><p class="is-size-6 is-block">记录生活，记录学习</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">42</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">25</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/seabrea" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/seabrea"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Backend/"><span class="level-start"><span class="level-item">Backend</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Daily/"><span class="level-start"><span class="level-item">Daily</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/categories/Mobile/"><span class="level-start"><span class="level-item">Mobile</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/categories/OS/"><span class="level-start"><span class="level-item">OS</span></span><span class="level-end"><span class="level-item tag">13</span></span></a></li><li><a class="level is-mobile" href="/categories/Web/"><span class="level-start"><span class="level-item">Web</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-10-27T00:00:00.000Z">2021-10-27</time></p><p class="title"><a href="/2021/10/27/ReactRouter/">Router 路由</a></p><p class="categories"><a href="/categories/Web/">Web</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-06-27T00:00:00.000Z">2021-06-27</time></p><p class="title"><a href="/2021/06/27/ShellScript/">Shell Script</a></p><p class="categories"><a href="/categories/OS/">OS</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-12-14T16:00:00.000Z">2020-12-15</time></p><p class="title"><a href="/2020/12/15/FlutterBase/">Flutter基础</a></p><p class="categories"><a href="/categories/Mobile/">Mobile</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-11-23T16:00:00.000Z">2020-11-24</time></p><p class="title"><a href="/2020/11/24/Network/">计算机网络</a></p><p class="categories"><a href="/categories/OS/">OS</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-10-05T13:00:00.000Z">2020-10-05</time></p><p class="title"><a href="/2020/10/05/HowToUseGithub/">如何使用GitHub</a></p><p class="categories"><a href="/categories/Daily/">Daily</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">October 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">June 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/12/"><span class="level-start"><span class="level-item">December 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/11/"><span class="level-start"><span class="level-item">November 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">October 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">June 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">May 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">April 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/03/"><span class="level-start"><span class="level-item">March 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/01/"><span class="level-start"><span class="level-item">January 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/12/"><span class="level-start"><span class="level-item">December 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/06/"><span class="level-start"><span class="level-item">June 2019</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/03/"><span class="level-start"><span class="level-item">March 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/01/"><span class="level-start"><span class="level-item">January 2019</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/12/"><span class="level-start"><span class="level-item">December 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/11/"><span class="level-start"><span class="level-item">November 2018</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/10/"><span class="level-start"><span class="level-item">October 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/09/"><span class="level-start"><span class="level-item">September 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/07/"><span class="level-start"><span class="level-item">July 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/04/"><span class="level-start"><span class="level-item">April 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/12/"><span class="level-start"><span class="level-item">December 2017</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/11/"><span class="level-start"><span class="level-item">November 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/10/"><span class="level-start"><span class="level-item">October 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/03/"><span class="level-start"><span class="level-item">March 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/02/"><span class="level-start"><span class="level-item">February 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/C/"><span class="tag">C#</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MD5/"><span class="tag">MD5</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Network/"><span class="tag">Network</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/React/"><span class="tag">React</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SQL/"><span class="tag">SQL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Shell/"><span class="tag">Shell</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/TypeScript/"><span class="tag">TypeScript</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/UI/"><span class="tag">UI</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/flutter/"><span class="tag">flutter</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/go/"><span class="tag">go</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/iOS/"><span class="tag">iOS</span><span class="tag">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/markdown/"><span class="tag">markdown</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/zsh/"><span class="tag">zsh</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/"><span class="tag">二进制</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"><span class="tag">位运算</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/"><span class="tag">字符编码</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><span class="tag">正则表达式</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%9F%A5%E8%AF%86%E4%BA%A7%E6%9D%83/"><span class="tag">知识产权</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%8F%E6%B5%8E/"><span class="tag">经济</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%87%AA%E4%B8%BB%E5%AD%A6%E4%B9%A0/"><span class="tag">自主学习</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/"><span class="tag">计算机原理</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.png" alt="BLOG" height="28"></a><p class="is-size-7"><span>&copy; 2022 Sea Brea</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
